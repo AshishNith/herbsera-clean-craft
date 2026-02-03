@@ -83,3 +83,13 @@ export const removeFromWishlist = async (productId: string): Promise<{ success: 
   const response = await api.delete(`/users/wishlist/${productId}`);
   return response.data;
 };
+
+export default {
+  getProfile,
+  updateProfile,
+  addAddress,
+  updateAddress,
+  deleteAddress,
+  addToWishlist,
+  removeFromWishlist,
+};

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
-  User,
+  User as FirebaseUser,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -10,6 +10,11 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import userService from '@/services/userService';
+
+interface User extends FirebaseUser {
+  role?: 'user' | 'admin';
+}
 
 interface AuthContextType {
   user: User | null;
@@ -36,8 +41,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        try {
+          // Fetch user profile from backend to get role
+          const response = await userService.getProfile();
+          setUser({ ...firebaseUser, role: response.data.role } as User);
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+          setUser(firebaseUser as User);
+        }
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 
