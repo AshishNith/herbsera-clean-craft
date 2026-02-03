@@ -1,59 +1,29 @@
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import { getProducts } from "@/services/productService";
 
 import soapNeem from "@/assets/soap-neem.jpg";
-import soapLavender from "@/assets/soap-lavender.jpg";
-import soapTurmeric from "@/assets/soap-turmeric.jpg";
-import soapCharcoal from "@/assets/soap-charcoal.jpg";
 
 const Products = () => {
-  const products = [
-    {
-      id: "neem-tulsi",
-      name: "Neem & Tulsi",
-      benefit: "Acne Care & Clarifying",
-      price: 249,
-      image: soapNeem,
-    },
-    {
-      id: "lavender-calm",
-      name: "Lavender Bliss",
-      benefit: "Calming & Relaxing",
-      price: 279,
-      image: soapLavender,
-    },
-    {
-      id: "turmeric-glow",
-      name: "Turmeric Glow",
-      benefit: "Brightening & Radiance",
-      price: 269,
-      image: soapTurmeric,
-    },
-    {
-      id: "charcoal-detox",
-      name: "Charcoal Detox",
-      benefit: "Deep Cleansing & Purifying",
-      price: 289,
-      image: soapCharcoal,
-    },
-    {
-      id: "aloe-vera",
-      name: "Aloe Vera Fresh",
-      benefit: "Hydrating & Soothing",
-      price: 259,
-      image: soapNeem,
-    },
-    {
-      id: "rose-petal",
-      name: "Rose Petal Glow",
-      benefit: "Moisturizing & Anti-aging",
-      price: 299,
-      image: soapLavender,
-    },
-  ];
+  const [filters, setFilters] = useState({
+    page: 1,
+    limit: 12,
+    category: "",
+    sort: "-createdAt",
+  });
+
+  // Fetch products from backend
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products", filters],
+    queryFn: () => getProducts(filters),
+  });
+
+  const products = data?.data || [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -78,18 +48,37 @@ const Products = () => {
       {/* Products Grid */}
       <section className="section-padding">
         <div className="container-content">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                benefit={product.benefit}
-                price={product.price}
-                image={product.image}
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="text-center py-16">
+              <p className="text-charcoal-light">Loading products...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-16">
+              <p className="text-red-600">Failed to load products. Using backend API.</p>
+              <p className="text-sm text-charcoal-light mt-2">
+                Make sure the backend server is running on http://localhost:5000
+              </p>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-charcoal-light">No products found.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {products.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  id={product._id}
+                  slug={product.slug}
+                  name={product.name}
+                  benefit={product.benefit || product.description?.substring(0, 100)}
+                  price={product.price}
+                  image={product.images?.[0]?.url || soapNeem}
+                  stock={product.stock}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

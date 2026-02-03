@@ -1,12 +1,24 @@
-import { Link, useLocation } from "react-router-dom";
+﻿import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const { cart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +36,13 @@ const Header = () => {
     { path: "/sustainability", label: "Sustainability" },
     { path: "/contact", label: "Contact" },
   ];
+
+  const cartItemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
 
   return (
     <header
@@ -60,12 +79,62 @@ const Header = () => {
 
         {/* Right Actions */}
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="relative">
+          {/* Cart Button */}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="relative"
+            onClick={() => navigate('/cart')}
+          >
             <ShoppingBag className="h-5 w-5 text-charcoal" />
-            <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
-              0
-            </span>
+            {cartItemsCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {cartItemsCount}
+              </span>
+            )}
           </Button>
+
+          {/* User Menu */}
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative">
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt="Profile"
+                      referrerPolicy="no-referrer"
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <User className="h-5 w-5 text-charcoal" />
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem onClick={() => navigate('/profile')}>
+                  My Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/orders')}>
+                  My Orders
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button 
+              variant="soft" 
+              size="sm"
+              onClick={() => navigate('/login')}
+              className="hidden md:flex"
+            >
+              Login
+            </Button>
+          )}
 
           {/* Mobile Menu Toggle */}
           <button
@@ -98,12 +167,23 @@ const Header = () => {
               className={`text-lg font-medium py-2 border-b border-border ${
                 location.pathname === link.path
                   ? "text-primary"
-                  : "text-charcoal-light"
+                  : "text-charcoal"
               }`}
             >
               {link.label}
             </Link>
           ))}
+          {!user && (
+            <Button 
+              onClick={() => {
+                navigate('/login');
+                setIsMobileMenuOpen(false);
+              }}
+              className="mt-4"
+            >
+              Login
+            </Button>
+          )}
         </nav>
       </div>
     </header>

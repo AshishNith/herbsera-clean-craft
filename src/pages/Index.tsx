@@ -1,48 +1,23 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Leaf, Droplets, Shield, Heart } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import TrustBadge from "@/components/TrustBadge";
+import { getFeaturedProducts } from "@/services/productService";
 
 import heroBg from "@/assets/hero-bg.jpg";
 import soapNeem from "@/assets/soap-neem.jpg";
-import soapLavender from "@/assets/soap-lavender.jpg";
-import soapTurmeric from "@/assets/soap-turmeric.jpg";
-import soapCharcoal from "@/assets/soap-charcoal.jpg";
 
 const Index = () => {
-  const featuredProducts = [
-    {
-      id: "neem-tulsi",
-      name: "Neem & Tulsi",
-      benefit: "Acne Care & Clarifying",
-      price: 249,
-      image: soapNeem,
-    },
-    {
-      id: "lavender-calm",
-      name: "Lavender Bliss",
-      benefit: "Calming & Relaxing",
-      price: 279,
-      image: soapLavender,
-    },
-    {
-      id: "turmeric-glow",
-      name: "Turmeric Glow",
-      benefit: "Brightening & Radiance",
-      price: 269,
-      image: soapTurmeric,
-    },
-    {
-      id: "charcoal-detox",
-      name: "Charcoal Detox",
-      benefit: "Deep Cleansing & Purifying",
-      price: 289,
-      image: soapCharcoal,
-    },
-  ];
+  const { data: featuredData, isLoading } = useQuery({
+    queryKey: ['featured-products'],
+    queryFn: getFeaturedProducts,
+  });
+
+  const featuredProducts = featuredData?.data || [];
 
   const trustBadges = [
     {
@@ -138,16 +113,29 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                benefit={product.benefit}
-                price={product.price}
-                image={product.image}
-              />
-            ))}
+            {isLoading ? (
+              // Loading skeleton
+              [...Array(4)].map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="aspect-square bg-cream-dark rounded-lg mb-4"></div>
+                  <div className="h-4 bg-cream-dark rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-cream-dark rounded w-1/2"></div>
+                </div>
+              ))
+            ) : (
+              featuredProducts.slice(0, 4).map((product) => (
+                <ProductCard
+                  key={product._id}
+                  id={product._id}
+                  slug={product.slug}
+                  name={product.name}
+                  benefit={product.benefit || product.description?.substring(0, 50)}
+                  price={product.price}
+                  image={product.images[0]?.url || soapNeem}
+                  stock={product.stock}
+                />
+              ))
+            )}
           </div>
 
           <div className="text-center mt-12">
