@@ -5,6 +5,7 @@ import { getProductBySlug } from '@/services/productService';
 import { useCart } from '@/contexts/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ReviewSection from '@/components/ReviewSection';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -276,9 +277,7 @@ const ProductDetail = () => {
           </TabsContent>
 
           <TabsContent value="reviews" className="py-8">
-            <div className="text-center text-charcoal-light py-12">
-              <p>Reviews feature coming soon</p>
-            </div>
+            <ReviewSection productId={product._id} />
           </TabsContent>
         </Tabs>
       </div>
