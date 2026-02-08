@@ -111,17 +111,17 @@ export default function AdminReviews() {
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <img
-                            src={review.productId?.images?.[0] || '/placeholder.png'}
-                            alt={review.productId?.name}
+                            src={review.product?.images?.[0]?.url || '/placeholder.png'}
+                            alt={review.product?.name}
                             className="w-12 h-12 object-cover rounded"
                           />
-                          <p className="font-medium">{review.productId?.name}</p>
+                          <p className="font-medium">{review.product?.name}</p>
                         </div>
                       </TableCell>
                       <TableCell>
                         <div>
-                          <p className="font-medium">{review.userId?.displayName}</p>
-                          <p className="text-sm text-gray-500">{review.userId?.email}</p>
+                          <p className="font-medium">{review.user?.displayName}</p>
+                          <p className="text-sm text-gray-500">{review.user?.email}</p>
                         </div>
                       </TableCell>
                       <TableCell>{renderStars(review.rating)}</TableCell>

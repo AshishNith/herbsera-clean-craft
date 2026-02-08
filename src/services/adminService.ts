@@ -64,18 +64,20 @@ export interface AdminOrder {
 
 export interface AdminReview {
   _id: string;
-  userId: {
+  user: {
     _id: string;
     displayName: string;
     email: string;
   };
-  productId: {
+  product: {
     _id: string;
     name: string;
     images: string[];
   };
   rating: number;
   comment: string;
+  title?: string;
+  isVerifiedPurchase?: boolean;
   createdAt: string;
 }
 
