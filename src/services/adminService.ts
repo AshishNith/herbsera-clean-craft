@@ -182,6 +182,12 @@ class AdminService {
     const response = await api.delete(`/admin/reviews/${reviewId}`);
     return response.data;
   }
+
+  // Analytics
+  async getAnalytics(): Promise<{ success: boolean; data: any }> {
+    const response = await api.get('/admin/analytics');
+    return response.data;
+  }
 }
 
 export default new AdminService();

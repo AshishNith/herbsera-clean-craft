@@ -10,11 +10,13 @@ import {
   LogOut,
   Menu,
   X,
+  BarChart3,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
   { name: 'Products', href: '/admin/products', icon: Package },
   { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
   { name: 'Users', href: '/admin/users', icon: Users },
