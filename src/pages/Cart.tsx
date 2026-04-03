@@ -6,28 +6,28 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Cart = () => {
   const { cart, loading, updateQuantity, removeItem } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  if (!user) {
-    return (
-      <div className="min-h-screen pt-28 bg-cream flex flex-col">
-        <Header />
-        <div className="flex-1 flex mb-20 items-center justify-center px-4">
-          <div className="text-center">
-            <ShoppingBag className="w-16 h-16 text-charcoal-light mx-auto mb-4" />
-            <h2 className="font-serif text-2xl mb-2">Please Login</h2>
-            <p className="text-charcoal-light mb-6">You need to be logged in to view your cart</p>
-            <Button onClick={() => navigate('/login')}>Login</Button>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+  const cartItemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  const isEmpty = !cart || cart.items.length === 0;
+
+  const handleCheckout = () => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please login to proceed with your order.",
+      });
+      navigate('/login', { state: { from: '/checkout' } });
+    } else {
+      navigate('/checkout');
+    }
+  };
 
   if (loading && !cart) {
     return (
@@ -40,8 +40,6 @@ const Cart = () => {
       </div>
     );
   }
-
-  const isEmpty = !cart || cart.items.length === 0;
 
   return (
     <div className="min-h-screen pt-28 bg-cream flex flex-col">
@@ -66,8 +64,8 @@ const Cart = () => {
                   <div className="flex gap-6">
                     <div className="w-24 h-24 bg-cream-dark rounded-lg overflow-hidden flex-shrink-0">
                       <img
-                        src={item.product.images[0]?.url}
-                        alt={item.product.name}
+                        src={item.product?.images?.[0]?.url || '/placeholder.png'}
+                        alt={item.product?.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -75,8 +73,8 @@ const Cart = () => {
                     <div className="flex-1">
                       <div className="flex justify-between mb-2">
                         <div>
-                          <h3 className="font-medium text-charcoal mb-1">{item.product.name}</h3>
-                          <p className="text-sm text-charcoal-light">{item.product.category}</p>
+                          <h3 className="font-medium text-charcoal mb-1">{item.product?.name}</h3>
+                          <p className="text-sm text-charcoal-light">{item.product?.category}</p>
                         </div>
                         <button
                           onClick={() => removeItem(item._id)}
@@ -99,15 +97,15 @@ const Cart = () => {
                           <button
                             onClick={() => updateQuantity(item._id, item.quantity + 1)}
                             className="p-2 hover:bg-cream-dark transition-colors"
-                            disabled={item.quantity >= item.product.stock}
+                            disabled={item.quantity >= (item.product?.stock || 99)}
                           >
                             <Plus className="w-4 h-4" />
                           </button>
                         </div>
 
                         <div className="text-right">
-                          <div className="text-lg font-medium text-forest">₹{item.price * item.quantity}</div>
-                          <div className="text-sm text-charcoal-light">₹{item.price} each</div>
+                          <div className="text-lg font-medium text-forest">₹{((item.price || 0) * (item.quantity || 1)).toFixed(2)}</div>
+                          <div className="text-sm text-charcoal-light">₹{(item.price || 0).toFixed(2)} each</div>
                         </div>
                       </div>
                     </div>
@@ -123,8 +121,8 @@ const Cart = () => {
                 
                 <div className="space-y-3 mb-4">
                   <div className="flex justify-between text-charcoal-light">
-                    <span>Subtotal ({cart.items.length} items)</span>
-                    <span>₹{cart.totalPrice}</span>
+                    <span>Subtotal ({cartItemsCount} {cartItemsCount === 1 ? 'item' : 'items'})</span>
+                    <span>₹{(cart.totalPrice || 0).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-charcoal-light">
                     <span>Shipping</span>
@@ -132,7 +130,7 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between text-charcoal-light">
                     <span>Tax (18% GST)</span>
-                    <span>₹{(cart.totalPrice * 0.18).toFixed(2)}</span>
+                    <span>₹{((cart.totalPrice || 0) * 0.18).toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -140,10 +138,10 @@ const Cart = () => {
 
                 <div className="flex justify-between text-lg font-medium mb-6">
                   <span>Total</span>
-                  <span className="text-forest">₹{(cart.totalPrice * 1.18).toFixed(2)}</span>
+                  <span className="text-forest">₹{((cart.totalPrice || 0) * 1.18).toFixed(2)}</span>
                 </div>
 
-                <Button className="w-full mb-3" onClick={() => navigate('/checkout')}>
+                <Button className="w-full mb-3" onClick={handleCheckout}>
                   Proceed to Checkout
                 </Button>
                 <Button variant="outline" className="w-full" onClick={() => navigate('/products')}>

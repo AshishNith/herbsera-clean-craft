@@ -12,6 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Star, ShoppingCart, Heart, Truck, Shield, Leaf, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useCallback, useEffect } from 'react';
+import SEO from '@/components/SEO';
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -48,7 +49,14 @@ const ProductDetail = () => {
 
   const handleAddToCart = async () => {
     if (product) {
-      await addToCart(product._id, quantity);
+      await addToCart(product._id, quantity, {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        benefit: product.benefit,
+        images: product.images,
+        slug: product.slug
+      });
     }
   };
 
@@ -103,6 +111,39 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen pt-28 bg-cream">
+      {product && (
+        <SEO 
+          title={`${product.name} | Gemstone Soap – HerbsEra`}
+          description={product.description || `Buy ${product.name}, a luxury gemstone soap handcrafted by HerbsEra with natural botanical extracts.`}
+          ogType="product"
+          ogImage={product.images?.[0]?.url}
+          keywords={`${product.name}, gemstone soap, ${product.category}, natural soap, herbsera product`}
+          schema={{
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": product.name,
+            "image": product.images?.map((img: any) => img.url),
+            "description": product.description,
+            "sku": product.sku,
+            "brand": {
+              "@type": "Brand",
+              "name": "HerbsEra"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": `https://herbsera.in/products/${product.slug}`,
+              "priceCurrency": "INR",
+              "price": product.price,
+              "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": product.ratings?.average || 5,
+              "reviewCount": product.ratings?.count || 1
+            }
+          }}
+        />
+      )}
       <Header />
       
       <div className="container mx-auto px-4 py-12">

@@ -62,7 +62,7 @@ const Header = () => {
           <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
             <span className="material-symbols-outlined text-amber-500 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
-          <h1 className="text-white text-xl md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></h1>
+          <div className="text-white text-xl md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
         </Link>
         
         {/* Desktop Navigation - Perfectly Centered using Absolute Positioning */}

@@ -36,7 +36,7 @@ const Footer = () => {
           <div className="lg:col-span-4">
             <Link to="/" className="flex items-center gap-3 mb-8 group">
               <span className="material-symbols-outlined text-amber-500 text-3xl group-hover:rotate-12 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
-              <h1 className="text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></h1>
+              <div className="text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
             </Link>
             <p className="text-white/50 font-body leading-relaxed mb-10 max-w-sm">
               Crystallizing nature's healing essence into luxurious rituals. India's first gemstone soaps, crafted for the conscious soul.

@@ -21,7 +21,14 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     if (stock > 0) {
-      addToCart(id, 1);
+      addToCart(id, 1, { 
+        _id: id, 
+        name, 
+        price, 
+        benefit, 
+        images: [{ url: image }],
+        slug 
+      });
       toast.success(`${name} added to cart!`, {
         icon: <ShoppingBag className="h-4 w-4 text-emerald-600" />,
         className: "bg-white/80 backdrop-blur-xl border border-emerald-100 rounded-2xl shadow-2xl",
@@ -39,7 +46,7 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
     >
       <Link to={`/products/${slug}`} className="flex-1 flex flex-col">
         {/* Cinematic Image Container */}
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[3rem] bg-emerald-950/5 mb-8 shadow-2xl border border-white/40 ring-1 ring-emerald-950/5 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)] transition-all duration-700">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-emerald-950/5 mb-6 md:mb-8 shadow-2xl border border-white/40 ring-1 ring-emerald-950/5 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)] transition-all duration-700">
           <img
             src={image}
             alt={name}
@@ -50,12 +57,12 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
           <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Luxury Price Badge */}
-          <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-xl px-5 py-2.5 rounded-full border border-white shadow-2xl scale-90 group-hover:scale-105 transition-transform duration-500">
-            <span className="font-headline font-black text-xs text-emerald-950 tracking-widest">₹{price}</span>
+          <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-white/90 backdrop-blur-xl px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-white shadow-2xl scale-90 group-hover:scale-105 transition-transform duration-500">
+            <span className="font-headline font-black text-[10px] md:text-xs text-emerald-950 tracking-widest">₹{price}</span>
           </div>
 
           {/* Quick Add Overlay */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex gap-3 w-full px-8">
+          <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex gap-2 md:gap-3 w-full px-4 md:px-8">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

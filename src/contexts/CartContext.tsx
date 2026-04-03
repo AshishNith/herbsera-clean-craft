@@ -6,7 +6,7 @@ import { toast } from '@/hooks/use-toast';
 interface CartContextType {
   cart: Cart | null;
   loading: boolean;
-  addToCart: (productId: string, quantity?: number) => Promise<void>;
+  addToCart: (productId: string, quantity?: number, productData?: any) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => Promise<void>;
   removeItem: (itemId: string) => Promise<void>;
   refreshCart: () => Promise<void>;
@@ -30,10 +30,22 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshCart = async () => {
     if (!user) {
+      setLoading(true);
       const guestCart = JSON.parse(localStorage.getItem('herbsera_guest_cart') || '{"items":[]}');
-      // For a truly "wow" experience, we should probably fetch the product details for these IDs
-      // but for now, we'll just set it. The Cart page should handle fetching details if missing.
+      
+      // Ensure prices are numbers and recalculate total
+      guestCart.items = guestCart.items.map((item: any) => ({
+        ...item,
+        price: Number(item.price || item.product?.price || 0),
+        quantity: Number(item.quantity || 1)
+      }));
+      
+      guestCart.totalPrice = guestCart.items.reduce((acc: number, item: any) => 
+        acc + (item.price * item.quantity), 0
+      );
+      
       setCart(guestCart);
+      setLoading(false);
       return;
     }
 
@@ -74,7 +86,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     refreshCart();
   }, [user]);
 
-  const addToCart = async (productId: string, quantity: number = 1) => {
+  const addToCart = async (productId: string, quantity: number = 1, productData?: any) => {
     if (!user) {
       // Handle Guest Cart
       const guestCart = JSON.parse(localStorage.getItem('herbsera_guest_cart') || '{"items":[]}');
@@ -83,21 +95,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (existingItemIndex > -1) {
         guestCart.items[existingItemIndex].quantity += quantity;
       } else {
-        // We need to fetch basic product info or just store the ID and fetch later
-        // For simplicity, we'll store minimal info. Ideally, fetch product details if not available.
-        // But the simplest is to just refresh the cart from a "guest" service or mock it.
-        // Let's assume we can't fetch full product details here easily without making it complex.
-        // We'll just store the ID and the UI will handle it or we'll fetch details for guest view.
+        // Store full product info for guest view
         guestCart.items.push({
           _id: Math.random().toString(36).substr(2, 9),
-          product: { _id: productId }, // The UI might need more info like name/image
-          quantity
+          product: productData || { _id: productId }, 
+          quantity,
+          price: productData?.price || 0
         });
       }
 
+      // Recalculate total for guest cart
+      guestCart.totalPrice = guestCart.items.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
+
       localStorage.setItem('herbsera_guest_cart', JSON.stringify(guestCart));
-      // Trigger a "fake" cart update for the local state
-      // In a real app, we might want a getProductById service to populate the guest cart properly
       toast({
         title: 'Added to Cart',
         description: 'Item has been added to your guest cart',

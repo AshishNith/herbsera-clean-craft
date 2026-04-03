@@ -4,50 +4,55 @@ import { motion } from "framer-motion";
 
 const Terms = () => {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950">
       <Header />
-      <main className="container mx-auto px-4 py-32 max-w-4xl">
+      <main className="container-content pt-48 pb-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto"
         >
-          <h1 className="font-serif text-4xl md:text-5xl text-forest mb-8">Terms and Conditions</h1>
-          <div className="prose prose-forest max-w-none text-charcoal-light space-y-6">
-            <p className="text-lg">Welcome to HerbsEra. These terms and conditions outline the rules and regulations for the use of Herbsera's Website.</p>
+          <span className="text-[11px] font-headline font-black uppercase tracking-[0.4em] text-emerald-900/40 mb-6 block">Legal Agreement</span>
+          <h1 className="text-5xl md:text-7xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-12">
+            Terms & <span className="text-emerald-900/30 italic">Conditions</span>
+          </h1>
+          
+          <div className="prose prose-emerald max-w-none space-y-12 text-emerald-950/70 font-body leading-relaxed">
+            <section className="bg-white p-10 md:p-16 rounded-[3rem] border border-emerald-950/5 shadow-sm">
+              <p className="text-xl font-medium text-emerald-950 mb-8 border-l-4 border-lime-400 pl-6">
+                By entering the world of HerbsEra, you agree to the following terms and guidelines. These ensure a harmonious relationship between our craft and your experience.
+              </p>
+              
+              <div className="space-y-10">
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">1. Acceptance of Terms</h2>
+                  <p>Accessing HerbsEra signifies your agreement to comply with these terms. If any part of these guidelines does not resonate with you, we kindly ask that you refrain from using our botanical boutique.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">2. Intellectual Property</h2>
+                  <p>All content within HerbsEra—including cinematic imagery, botanical descriptions, and gemstone research—is our intellectual soul. Use of these materials for commercial purposes without our blessing is strictly prohibited.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">3. User Obligations</h2>
+                  <p>As a guest of HerbsEra, you agree to use our platform with integrity. Attempting to disrupt our digital architecture or misrepresent your identity is a violation of our mutual trust.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">4. Limitation of Liability</h2>
+                  <p>HerbsEra strives for absolute crystalline perfection, but we cannot be held liable for any indirect or consequential damages arising from the use of our website or artisanal products beyond their intended botanical purpose.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">5. Governing Law</h2>
+                  <p>These terms are governed by the laws of India. Any disputes arising from your journey with us shall be resolved through the jurisdiction of Indian courts, with an emphasis on mutual respect and clarity.</p>
+                </div>
+              </div>
+            </section>
             
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">1. Introduction</h2>
-              <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use HerbsEra if you do not agree to take all of the terms and conditions stated on this page.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">2. Intellectual Property Rights</h2>
-              <p>Other than the content you own, under these Terms, Herbsera and/or its licensors own all the intellectual property rights and materials contained in this Website.</p>
-              <p>You are granted limited license only for purposes of viewing the material contained on this Website.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">3. Restrictions</h2>
-              <p>You are specifically restricted from all of the following:</p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Publishing any Website material in any other media;</li>
-                <li>Selling, sublicensing and/or otherwise commercializing any Website material;</li>
-                <li>Publicly performing and/or showing any Website material;</li>
-                <li>Using this Website in any way that is or may be damaging to this Website;</li>
-                <li>Using this Website in any way that impacts user access to this Website;</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">4. Your Privacy</h2>
-              <p>Please read our Privacy Policy.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">5. Governing Law & Jurisdiction</h2>
-              <p>These Terms will be governed by and interpreted in accordance with the laws of the State of India, and you submit to the non-exclusive jurisdiction of the state and federal courts located in India for the resolution of any disputes.</p>
-            </section>
+            <p className="text-center text-sm font-headline font-black uppercase tracking-[0.2em] text-emerald-900/40">Effective Date: April 2024</p>
           </div>
         </motion.div>
       </main>

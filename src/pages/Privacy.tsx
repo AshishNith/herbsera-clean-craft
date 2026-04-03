@@ -4,50 +4,55 @@ import { motion } from "framer-motion";
 
 const Privacy = () => {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950">
       <Header />
-      <main className="container mx-auto px-4 py-32 max-w-4xl">
+      <main className="container-content pt-48 pb-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto"
         >
-          <h1 className="font-serif text-4xl md:text-5xl text-forest mb-8">Privacy Policy</h1>
-          <div className="prose prose-forest max-w-none text-charcoal-light space-y-6">
-            <p className="text-lg">At HerbsEra, accessible from herbsera.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by HerbsEra and how we use it.</p>
+          <span className="text-[11px] font-headline font-black uppercase tracking-[0.4em] text-emerald-900/40 mb-6 block">Legal Foundation</span>
+          <h1 className="text-5xl md:text-7xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-12">
+            Privacy <span className="text-emerald-900/30 italic">Policy</span>
+          </h1>
+          
+          <div className="prose prose-emerald max-w-none space-y-12 text-emerald-950/70 font-body leading-relaxed">
+            <section className="bg-white p-10 md:p-16 rounded-[3rem] border border-emerald-950/5 shadow-sm">
+              <p className="text-xl font-medium text-emerald-950 mb-8 border-l-4 border-lime-400 pl-6">
+                At HerbsEra, we believe that your digital privacy is as sacred as your physical well-being. This document outlines how we protect and manage the data you entrust to us.
+              </p>
+              
+              <div className="space-y-10">
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">1. Data Collection</h2>
+                  <p>We collect information that allows us to deliver the HerbsEra experience to you. This includes your name, delivery address, and contact details provided during the ritual of purchase or account creation.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">2. Purpose of Use</h2>
+                  <p>Your data exists only to serve your experience. We use it to process your crystalline soap orders, personalize your journey through our boutique, and occasionally share botanical insights if you've joined our circle.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">3. Security Protcols</h2>
+                  <p>We employ industry-leading encryption and security layers. Your financial details are handled through secure, PCI-compliant gateways and are never stored directly on our botanical servers.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">4. Digital Cookies</h2>
+                  <p>Our boutique uses essential cookies to remember your cart and preferences. These are small fragments of data that ensure your return to HerbsEra is as seamless as your first visit.</p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">5. Your Rights</h2>
+                  <p>You hold the ultimate power over your data. You may request access, rectification, or complete erasure of your personal information at any time by contacting our botanical concierge.</p>
+                </div>
+              </div>
+            </section>
             
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">1. Information We Collect</h2>
-              <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
-              <p>If you contact us directly, we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">2. How We Use Your Information</h2>
-              <p>We use the information we collect in various ways, including to:</p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Provide, operate, and maintain our website;</li>
-                <li>Improve, personalize, and expand our website;</li>
-                <li>Understand and analyze how you use our website;</li>
-                <li>Develop new products, services, features, and functionality;</li>
-                <li>Communicate with you, either directly or through one of our partners;</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">3. Log Files</h2>
-              <p>HerbsEra follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">4. Cookies and Web Beacons</h2>
-              <p>Like any other website, HerbsEra uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-serif text-charcoal mt-8 mb-4">5. CCPA Privacy Rights & GDPR Data Protection Rights</h2>
-              <p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the right to access, rectification, erasure, and data portability.</p>
-            </section>
+            <p className="text-center text-sm font-headline font-black uppercase tracking-[0.2em] text-emerald-900/40">Last Updated: April 2024</p>
           </div>
         </motion.div>
       </main>

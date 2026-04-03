@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 import ingredientsHero from "@/assets/ingredients-hero.jpg";
 
@@ -57,6 +58,11 @@ const Ingredients = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Pure Ingredients | Botanical & Gemstone Essence – HerbsEra"
+        description="Explore the natural ingredients behind our gemstone soaps. From Neem and Tulsi to Activated Charcoal and Gemstone infusions, we use only the purest botanical extracts."
+        keywords="soap ingredients, natural extracts, gemstone infusions, neem tulsi soap, charcoal detox ingredients, ayurvedic herbs"
+      />
       <Header />
 
       {/* Hero Section */}

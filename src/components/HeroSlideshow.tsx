@@ -5,21 +5,30 @@ import { Link } from 'react-router-dom';
 const slides = [
   {
     id: 1,
-    title: "India's 1st",
-    highlight: "Gemstone Soap",
-    description: "Experience the luxury of crystalline purity. Handcrafted with precision to bring the healing power of gems to your daily ritual.",
-    image: "/assets/soap-hero.png",
+    title: "Crystalline",
+    highlight: "Black Diamond",
+    description: "Experience the ultimate detox. Handcrafted with activated bamboo charcoal and gemstone vibrations for a deep, purifying cellular ritual.",
+    image: "/black_diamond_soap_hero_1775207803205.png",
     accent: "text-amber-400",
-    link: "/products"
+    link: "/products/the-black-diamond-soap"
   },
   {
     id: 2,
-    title: "Purely",
-    highlight: "Natural Ingredients",
-    description: "Sourced from the heart of nature. Our botanical blends are free from harsh chemicals, ensuring your skin receives only the finest care.",
-    image: "/assets/natural-ingredients.png",
+    title: "Botanical",
+    highlight: "Peridot Frost",
+    description: "A breath of glacial air for your skin. Infused with neem and peppermint extracts to refresh, cool, and rejuvenate your spirit.",
+    image: "/peridot_frost_soap_hero_1775207821647.png",
     accent: "text-lime-400",
-    link: "/ingredients"
+    link: "/products/the-peridot-frost-soap"
+  },
+  {
+    id: 3,
+    title: "Atmospheric",
+    highlight: "Lavender Glacier",
+    description: "Surrender to serene hydration. A calming blend of French lavender and essential minerals that transforms every wash into a moment of mountain peace.",
+    image: "/lavender_glacier_soap_hero_v2_1775207879453.png",
+    accent: "text-purple-400",
+    link: "/products/the-lavender-glacier-soap"
   }
 ];
 
@@ -34,7 +43,7 @@ const HeroSlideshow = () => {
   }, []);
 
   return (
-    <section className="relative h-screen min-h-[750px] w-full overflow-hidden bg-[#022c22]">
+    <section className="relative h-[80vh] md:h-screen min-h-[600px] md:min-h-[750px] w-full overflow-hidden bg-[#022c22]">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -62,37 +71,37 @@ const HeroSlideshow = () => {
           </motion.div>
 
           {/* Content Area */}
-          <div className="relative h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center items-start">
+          <div className="relative h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center items-start pt-20 md:pt-0">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
               className="max-w-3xl"
             >
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white w-fit mb-10 shadow-2xl">
-                <span className="material-symbols-outlined text-amber-500 text-sm animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>sparkles</span>
-                <span className="text-[10px] font-headline font-extrabold uppercase tracking-[0.4em] text-white/90">HerbsEra Luxury</span>
+              <div className="inline-flex items-center gap-3 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white w-fit mb-6 md:mb-10 shadow-2xl">
+                <span className="material-symbols-outlined text-amber-500 text-xs md:text-sm animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>sparkles</span>
+                <span className="text-[9px] md:text-[10px] font-headline font-extrabold uppercase tracking-[0.4em] text-white/90">HerbsEra Luxury</span>
               </div>
 
-              <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-headline font-black text-white leading-[0.95] mb-8 tracking-tighter">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-headline font-black text-white leading-[0.95] mb-6 md:mb-8 tracking-tighter">
                 {slides[currentSlide].title} <br />
                 <span className={`${slides[currentSlide].accent} block mt-2 drop-shadow-[0_10px_30px_rgba(255,191,0,0.3)]`}>
                   {slides[currentSlide].highlight}
                 </span>
               </h1>
 
-              <p className="text-lg md:text-2xl text-stone-200 font-body max-w-xl mb-12 leading-relaxed opacity-90 font-medium">
+              <p className="text-sm md:text-xl text-stone-200 font-body max-w-xl mb-10 md:mb-12 leading-relaxed opacity-90 font-medium line-clamp-3 md:line-clamp-none">
                 {slides[currentSlide].description}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-6">
-                <Link to={slides[currentSlide].link} className="group relative bg-white text-emerald-950 px-10 py-5 rounded-full font-headline font-black text-xs uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center justify-center gap-3">
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+                <Link to={slides[currentSlide].link} className="group relative bg-white text-emerald-950 px-8 py-4 md:px-10 md:py-5 rounded-full font-headline font-black text-[10px] md:text-xs uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center justify-center gap-3">
                   <span className="relative z-10">Shop Collection</span>
                   <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                   <div className="absolute inset-0 bg-lime-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </Link>
                 
-                <Link to="/about" className="flex items-center justify-center gap-3 px-10 py-5 rounded-full border border-white/30 text-white font-headline font-bold text-xs uppercase tracking-widest backdrop-blur-md hover:bg-white/10 hover:border-white transition-all">
+                <Link to="/about" className="flex items-center justify-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-full border border-white/30 text-white font-headline font-bold text-[10px] md:text-xs uppercase tracking-widest backdrop-blur-md hover:bg-white/10 hover:border-white transition-all">
                   <span className="material-symbols-outlined text-sm">play_circle</span>
                   Our Story
                 </Link>
@@ -103,27 +112,27 @@ const HeroSlideshow = () => {
       </AnimatePresence>
 
       {/* Persistent Brand Tagline Overlay at Bottom */}
-      <div className="absolute bottom-16 left-0 w-full flex justify-center pointer-events-none px-6">
+      <div className="absolute bottom-8 md:bottom-16 left-0 w-full flex justify-center pointer-events-none px-6">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="flex items-center gap-6 bg-emerald-950/40 backdrop-blur-2xl px-12 py-5 rounded-full border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+          className="flex items-center gap-4 md:gap-6 bg-emerald-950/40 backdrop-blur-2xl px-8 py-3 md:px-12 md:py-5 rounded-full border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.5)] scale-90 md:scale-100"
         >
-          <span className="text-amber-400 font-headline font-black tracking-[0.5em] uppercase text-xs md:text-sm">Purely Herbs</span>
-          <span className="text-amber-500 text-3xl drop-shadow-2xl">🍁</span>
-          <span className="text-amber-400 font-headline font-black tracking-[0.5em] uppercase text-xs md:text-sm">Truly Yours</span>
+          <span className="text-amber-400 font-headline font-black tracking-[0.5em] uppercase text-[9px] md:text-sm">Purely Herbs</span>
+          <span className="text-amber-500 text-xl md:text-3xl drop-shadow-2xl">🍁</span>
+          <span className="text-amber-400 font-headline font-black tracking-[0.5em] uppercase text-[9px] md:text-sm">Truly Yours</span>
         </motion.div>
       </div>
 
       {/* Slide Indicators (Vertical Pills) */}
-      <div className="absolute right-8 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-5 z-20">
+      <div className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-3 md:gap-5 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-1 h-14 rounded-full transition-all duration-700 ${
-              currentSlide === index ? 'bg-amber-400 h-24' : 'bg-white/20 hover:bg-white/40'
+            className={`w-0.5 md:w-1 h-8 md:h-14 rounded-full transition-all duration-700 ${
+              currentSlide === index ? 'bg-amber-400 h-12 md:h-24' : 'bg-white/20 hover:bg-white/40'
             }`}
             aria-label={`Slide ${index + 1}`}
           />

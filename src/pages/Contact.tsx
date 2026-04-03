@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
@@ -51,6 +52,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Contact Us | Support & Inquiries – HerbsEra"
+        description="Have questions about our gemstone soaps? Reach out to the HerbsEra team. We're here to help with orders, product inquiries, and wholesale opportunities."
+        keywords="contact herbsera, gemstone soap support, skincare inquiries india, herbsera address, customer service soap"
+      />
       <Header />
 
       {/* Hero Section */}

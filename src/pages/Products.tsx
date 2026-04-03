@@ -6,7 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { getProducts } from "@/services/productService";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import SEO from "@/components/SEO";
 
 import soapNeem from "@/assets/soap-neem.jpg";
 
@@ -56,6 +57,11 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Gemstone Soaps & Botanical Bars | HerbsEra Collection"
+        description="Browse our collection of luxury gemstone soaps and handcrafted herbal bars. Each product is infused with natural minerals and botanical extracts for a sacred skincare ritual."
+        keywords="gemstone soap collection, herbal bars, natural soaps shop, ayurvedic gemstone soap, artisan soaps india"
+      />
       <Header />
 
       {/* Hero Section */}
@@ -74,7 +80,7 @@ const Products = () => {
             transition={{ delay: 0.1 }}
             className="heading-display text-charcoal mb-6"
           >
-            Handcrafted Herbal Soaps
+            Gemstone Soaps & <br/>Handcrafted Herbal Bars
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -229,7 +235,6 @@ const Products = () => {
 };
 
 // Required for framer-motion AnimatePresence
-import { AnimatePresence } from "framer-motion";
 import { Leaf, Heart, Shield, Droplets } from "lucide-react";
 
 export default Products;
