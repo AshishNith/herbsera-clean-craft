@@ -51,27 +51,27 @@ const Header = () => {
       animate={{ y: 0 }}
       className={`fixed z-[100] transition-all duration-500 inset-x-0 mx-auto
         ${isScrolled 
-          ? `top-4 w-[calc(100%-1.5rem)] md:w-[95%] lg:w-[90%] max-w-7xl bg-emerald-950/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 py-3 ${isOpen ? 'rounded-[2rem]' : 'rounded-full'}` 
-          : `top-0 w-full py-6 ${isDarkCanvas ? 'bg-transparent' : 'bg-emerald-900 border-b border-white/5'} rounded-none`
+          ? `top-2 sm:top-4 w-[calc(100%-1rem)] sm:w-[calc(100%-1.5rem)] md:w-[95%] lg:w-[90%] max-w-7xl bg-emerald-950/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 py-2 sm:py-3 ${isOpen ? 'rounded-[1.5rem] sm:rounded-[2rem]' : 'rounded-full'}` 
+          : `top-0 w-full py-4 sm:py-6 ${isDarkCanvas ? 'bg-transparent' : 'bg-emerald-900 border-b border-white/5'} rounded-none`
         }
       `}
     >
-      <div className="relative flex justify-between items-center w-full max-w-7xl mx-auto px-6 md:px-10">
+      <div className="relative flex justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* Brand Identity */}
         <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 z-10">
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
-            <span className="material-symbols-outlined text-amber-500 text-xl sm:text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
+            <span className="material-symbols-outlined text-amber-500 text-lg sm:text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
-          <div className="text-white text-lg sm:text-xl md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
+          <div className="text-white text-base sm:text-lg md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
         </Link>
         
         {/* Desktop Navigation - Perfectly Centered using Absolute Positioning */}
-        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-8 items-center bg-white/5 px-8 py-2.5 rounded-full border border-white/10 backdrop-blur-md z-0">
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-6 sm:gap-8 items-center bg-white/5 px-6 sm:px-8 py-2.5 rounded-full border border-white/10 backdrop-blur-md z-0">
           {navLinks.map((link) => (
             <Link 
               key={link.path}
               to={link.path} 
-              className={`font-headline font-extrabold text-[10px] tracking-[0.2em] uppercase transition-all hover:scale-110 whitespace-nowrap ${isActive(link.path) ? 'text-lime-400' : 'text-stone-300 hover:text-white'}`}
+              className={`font-headline font-extrabold text-[9px] sm:text-[10px] tracking-[0.2em] uppercase transition-all hover:scale-110 whitespace-nowrap ${isActive(link.path) ? 'text-lime-400' : 'text-stone-300 hover:text-white'}`}
             >
               {link.label}
             </Link>
@@ -79,15 +79,15 @@ const Header = () => {
         </nav>
         
         {/* Global Actions */}
-        <div className="flex items-center gap-3 md:gap-5 shrink-0 z-10">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-5 shrink-0 z-10">
           {/* Cart Button */}
           <Link 
             to="/cart" 
-            className="group relative p-2.5 rounded-full bg-white/5 border border-white/10 hover:border-lime-400/50 transition-all flex items-center justify-center"
+            className="group relative p-2 sm:p-2.5 rounded-full bg-white/5 border border-white/10 hover:border-lime-400/50 transition-all flex items-center justify-center"
           >
-            <ShoppingBag size={20} className="text-white group-hover:text-lime-400 transition-colors" />
+            <ShoppingBag size={18} className="text-white group-hover:text-lime-400 transition-colors" />
             {cartItemsCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-lime-400 text-emerald-950 text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-2xl border-2 border-emerald-950">
+              <span className="absolute -top-1 -right-1 bg-lime-400 text-emerald-950 text-[9px] font-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-2xl border-2 border-emerald-950">
                 {cartItemsCount}
               </span>
             )}
@@ -127,7 +127,7 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link to="/login" className="bg-white text-emerald-950 px-8 py-3.5 rounded-full font-headline font-black text-[10px] uppercase tracking-[0.2em] hover:scale-105 hover:bg-lime-400 active:opacity-80 transition-all shadow-2xl">
+              <Link to="/login" className="bg-white text-emerald-950 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-headline font-black text-[9px] sm:text-[10px] uppercase tracking-[0.2em] hover:scale-105 hover:bg-lime-400 active:opacity-80 transition-all shadow-2xl">
                 Login / Join
               </Link>
             )}
@@ -152,7 +152,7 @@ const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden w-full overflow-hidden bg-emerald-950/98 backdrop-blur-3xl border-t border-white/5 shadow-2xl rounded-b-[2rem]"
           >
-            <div className="px-8 pb-12 pt-8 flex flex-col gap-8 text-left">
+            <div className="px-6 sm:px-8 pb-10 sm:pb-12 pt-6 sm:pt-8 flex flex-col gap-6 sm:gap-8 text-left max-h-[80vh] overflow-y-auto">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.path}
@@ -163,7 +163,7 @@ const Header = () => {
                   <Link 
                     to={link.path} 
                     onClick={toggleMenu}
-                    className={`font-headline font-black text-2xl sm:text-3xl uppercase tracking-[0.2em] transition-all flex items-center gap-4 ${isActive(link.path) ? 'text-lime-400' : 'text-stone-300'}`}
+                    className={`font-headline font-black text-xl sm:text-2xl md:text-3xl uppercase tracking-[0.15em] transition-all flex items-center gap-3 ${isActive(link.path) ? 'text-lime-400' : 'text-stone-300'}`}
                   >
                     <span className="text-[10px] text-white/20 font-black">0{i+1}</span>
                     {link.label}
@@ -175,20 +175,20 @@ const Header = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex flex-col gap-4 mt-8"
+                className="flex flex-col gap-3 sm:gap-4 mt-4"
               >
                 {!user ? (
                   <Link 
                     to="/login" 
                     onClick={toggleMenu} 
-                    className="bg-lime-400 text-emerald-950 py-5 rounded-2xl font-headline font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-lime-400/20 text-center active:scale-95 transition-all"
+                    className="bg-lime-400 text-emerald-950 py-4 sm:py-5 rounded-2xl font-headline font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-lime-400/20 text-center active:scale-95 transition-all"
                   >
                     Login / Join
                   </Link>
                 ) : (
-                  <div className="flex flex-col gap-4">
-                    <Link to="/profile" onClick={toggleMenu} className="bg-white/10 py-5 rounded-2xl text-white font-headline font-bold text-xs uppercase tracking-[0.2em] border border-white/10 text-center">My Profile</Link>
-                    <button onClick={handleLogout} className="bg-red-500/20 py-5 rounded-2xl text-red-100 font-headline font-bold text-xs uppercase tracking-[0.2em] border border-red-500/20 text-center">Logout</button>
+                  <div className="flex flex-col gap-3 sm:gap-4">
+                    <Link to="/profile" onClick={toggleMenu} className="bg-white/10 py-4 sm:py-5 rounded-2xl text-white font-headline font-bold text-xs uppercase tracking-[0.2em] border border-white/10 text-center">My Profile</Link>
+                    <button onClick={handleLogout} className="bg-red-500/20 py-4 sm:py-5 rounded-2xl text-red-100 font-headline font-bold text-xs uppercase tracking-[0.2em] border border-red-500/20 text-center">Logout</button>
                   </div>
                 )}
               </motion.div>

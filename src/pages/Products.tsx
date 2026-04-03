@@ -65,12 +65,12 @@ const Products = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-40 pb-16 bg-cream-dark">
+      <section className="pt-28 sm:pt-32 md:pt-40 pb-12 sm:pb-16 bg-cream-dark">
         <div className="container-content text-center">
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block text-sage font-medium tracking-widest uppercase text-sm mb-4"
+            className="inline-block text-sage font-medium tracking-widest uppercase text-xs sm:text-sm mb-3 sm:mb-4"
           >
             Our Collection
           </motion.span>
@@ -78,7 +78,7 @@ const Products = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="heading-display text-charcoal mb-6"
+            className="heading-display text-charcoal mb-4 sm:mb-6"
           >
             Gemstone Soaps & <br/>Handcrafted Herbal Bars
           </motion.h1>
@@ -86,7 +86,7 @@ const Products = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-body max-w-2xl mx-auto"
+            className="text-body max-w-2xl mx-auto px-4"
           >
             Each bar is thoughtfully formulated with premium botanical
             ingredients to nourish, cleanse, and revitalize your skin naturally.
@@ -95,14 +95,14 @@ const Products = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="sticky top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border py-4">
+      <section className="sticky top-16 sm:top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border py-3 sm:py-4">
         <div className="container-content overflow-x-auto no-scrollbar">
-          <div className="flex items-center justify-start md:justify-center gap-4 min-w-max px-4">
+          <div className="flex items-center justify-start md:justify-center gap-2 sm:gap-4 min-w-max px-4">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => handleCategoryChange(cat.search)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
                   currentSearch === cat.search
                     ? "bg-forest text-cream shadow-md"
                     : "bg-cream-dark text-charcoal hover:bg-sage/20"
@@ -125,7 +125,7 @@ const Products = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="py-16"
+                className="py-12 sm:py-16"
               >
                 <div className="animate-pulse inline-block p-4 border rounded-lg bg-cream/50">
                   <p className="text-charcoal-light">Loading products...</p>
@@ -137,7 +137,7 @@ const Products = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="py-16"
+                className="py-12 sm:py-16"
               >
                 <p className="text-red-600">Failed to load products.</p>
                 <p className="text-sm text-charcoal-light mt-2">
@@ -150,13 +150,13 @@ const Products = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="py-24 text-center border-2 border-dashed border-border rounded-3xl bg-cream/20"
+                className="py-16 sm:py-24 text-center border-2 border-dashed border-border rounded-2xl sm:rounded-3xl bg-cream/20 px-4"
               >
-                <p className="text-xl font-serif text-charcoal mb-2">No products found</p>
-                <p className="text-charcoal-light">Try adjusting your filters or browsing our other collections.</p>
+                <p className="text-lg sm:text-xl font-serif text-charcoal mb-2">No products found</p>
+                <p className="text-charcoal-light text-sm sm:text-base">Try adjusting your filters or browsing our other collections.</p>
                 <Button 
                   variant="outline" 
-                  className="mt-6"
+                  className="mt-4 sm:mt-6"
                   onClick={() => handleCategoryChange("")}
                 >
                   View All Products
@@ -168,7 +168,7 @@ const Products = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+                className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-10"
               >
                 {products.map((product, index) => (
                   <motion.div
@@ -195,35 +195,35 @@ const Products = () => {
       </section>
 
       {/* Benefits Banner */}
-      <section className="py-20 bg-forest text-cream">
+      <section className="py-12 sm:py-20 bg-forest text-cream">
         <div className="container-content text-center">
-          <h2 className="font-serif text-3xl md:text-4xl mb-12">
+          <h2 className="font-serif text-xl sm:text-3xl md:text-4xl mb-8 sm:mb-12">
             Every Herbsera Product Promises
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
-                <Leaf size={24} />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
+                <Leaf size={20} className="sm:w-6" />
               </div>
-              <span className="font-medium">100% Natural</span>
+              <span className="font-medium text-sm sm:text-base">100% Natural</span>
             </div>
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
-                <Heart size={24} />
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
+                <Heart size={20} className="sm:w-6" />
               </div>
-              <span className="font-medium">Cruelty-Free</span>
+              <span className="font-medium text-sm sm:text-base">Cruelty-Free</span>
             </div>
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
-                <Shield size={24} />
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
+                <Shield size={20} className="sm:w-6" />
               </div>
-              <span className="font-medium">Sustainable</span>
+              <span className="font-medium text-sm sm:text-base">Sustainable</span>
             </div>
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
-                <Droplets size={24} />
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage">
+                <Droplets size={20} className="sm:w-6" />
               </div>
-              <span className="font-medium">Handmade</span>
+              <span className="font-medium text-sm sm:text-base">Handmade</span>
             </div>
           </div>
         </div>

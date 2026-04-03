@@ -131,17 +131,17 @@
 @layer components {
   .heading-display {
     font-family: 'Playfair Display', serif;
-    @apply text-4xl md:text-5xl lg:text-6xl font-medium leading-tight;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight;
   }
 
   .heading-section {
     font-family: 'Playfair Display', serif;
-    @apply text-3xl md:text-4xl font-medium leading-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl font-medium leading-tight;
   }
 
   .heading-card {
     font-family: 'Playfair Display', serif;
-    @apply text-xl md:text-2xl font-medium;
+    @apply text-lg sm:text-xl md:text-2xl font-medium;
   }
 
   .text-body {
@@ -165,7 +165,7 @@
 
   /* Button Variants */
   .btn-primary {
-    @apply bg-primary text-primary-foreground px-8 py-4 rounded-full font-medium 
+    @apply bg-primary text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium 
            transition-all duration-300 ease-out hover:shadow-lg;
   }
 
@@ -175,7 +175,7 @@
   }
 
   .btn-secondary {
-    @apply bg-transparent border-2 border-primary text-primary px-8 py-4 rounded-full 
+    @apply bg-transparent border-2 border-primary text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-full 
            font-medium transition-all duration-300 ease-out;
   }
 
@@ -185,11 +185,11 @@
 
   /* Section Styles */
   .section-padding {
-    @apply py-20 md:py-28 lg:py-32;
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
   }
 
   .container-content {
-    @apply max-w-7xl mx-auto px-6 md:px-8 lg:px-12;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12;
   }
 
   /* Animations */

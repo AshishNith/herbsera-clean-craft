@@ -50,29 +50,29 @@ const Index = () => {
       <h1 className="sr-only">HerbsEra - Premium Gemstone Soaps and Natural Ayurvedic Skincare</h1>
 
       {/* Trust Badges - The Botanical Promise */}
-      <section className="py-16 md:py-32 bg-white relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-32 bg-white relative overflow-hidden">
         {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-50 opacity-20 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-50 opacity-20 blur-[80px] sm:blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
         
         <div className="container-content relative z-10">
-          <div className="text-center mb-12 md:mb-20 max-w-2xl mx-auto">
+          <div className="text-center mb-10 sm:mb-12 md:mb-20 max-w-2xl mx-auto">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.4em] text-emerald-900/40 mb-4 block"
+              className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-emerald-900/40 mb-3 sm:mb-4 block"
             >
               Why Choose HerbsEra
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="text-3xl md:text-5xl font-headline font-black text-emerald-950 uppercase tracking-tight leading-[1.1]"
+              className="text-2xl sm:text-3xl md:text-5xl font-headline font-black text-emerald-950 uppercase tracking-tight leading-[1.1]"
             >
               The Botanical <br/><span className="text-emerald-900/50">Promise</span>
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {trustBadges.map((badge, index) => (
               <TrustBadge
                 key={badge.title}
@@ -87,20 +87,20 @@ const Index = () => {
       </section>
 
       {/* Featured Collection - Crystalline Collection */}
-      <section className="py-20 md:py-40 bg-emerald-950 overflow-hidden relative">
+      <section className="py-16 sm:py-20 md:py-40 bg-emerald-950 overflow-hidden relative">
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-          <div className="absolute top-20 right-10 w-96 h-96 bg-lime-400 rounded-full blur-[150px]" />
-          <div className="absolute bottom-20 left-10 w-96 h-96 bg-emerald-700 rounded-full blur-[150px]" />
+          <div className="absolute top-10 sm:top-20 right-4 sm:right-10 w-48 sm:w-96 h-48 sm:h-96 bg-lime-400 rounded-full blur-[100px] sm:blur-[150px]" />
+          <div className="absolute bottom-10 sm:bottom-20 left-4 sm:left-10 w-48 sm:w-96 h-48 sm:h-96 bg-emerald-700 rounded-full blur-[100px] sm:blur-[150px]" />
         </div>
 
         <div className="container-content relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-24 gap-6 sm:gap-8">
             <div className="text-left">
               <motion.span 
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.4em] text-white/40 mb-4 block"
+                className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white/40 mb-3 sm:mb-4 block"
               >
                 Crystalline Collection
               </motion.span>
@@ -108,7 +108,7 @@ const Index = () => {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl md:text-6xl font-headline font-black text-white uppercase tracking-tighter leading-none"
+                className="text-2xl sm:text-3xl md:text-6xl font-headline font-black text-white uppercase tracking-tighter leading-none"
               >
                 Gems For <br/><span className="text-lime-400">Your Skin</span>
               </motion.h2>
@@ -119,19 +119,19 @@ const Index = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <Link to="/products" className="group flex items-center gap-4 bg-white/5 border border-white/20 px-8 py-4 md:px-10 md:py-5 rounded-full text-white font-headline font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all shadow-2xl">
-                Explore Full Universe <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+              <Link to="/products" className="group flex items-center gap-3 sm:gap-4 bg-white/5 border border-white/20 px-6 sm:px-8 py-3 sm:py-4 md:px-10 md:py-5 rounded-full text-white font-headline font-black text-[8px] sm:text-[9px] md:text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all shadow-2xl">
+                Explore Full Universe <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
               </Link>
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-10">
             {isLoading ? (
               [...Array(4)].map((_, index) => (
-                <div key={index} className="animate-pulse flex flex-col gap-6">
-                  <div className="aspect-[4/5] bg-white/5 rounded-[3rem]"></div>
-                  <div className="h-4 bg-white/5 rounded full w-3/4 mx-auto"></div>
-                  <div className="h-4 bg-white/5 rounded full w-1/2 mx-auto"></div>
+                <div key={index} className="animate-pulse flex flex-col gap-4 sm:gap-6">
+                  <div className="aspect-[4/5] bg-white/5 rounded-[2rem] sm:rounded-[3rem]"></div>
+                  <div className="h-3 sm:h-4 bg-white/5 rounded full w-3/4 mx-auto"></div>
+                  <div className="h-3 sm:h-4 bg-white/5 rounded full w-1/2 mx-auto"></div>
                 </div>
               ))
             ) : (
@@ -154,34 +154,34 @@ const Index = () => {
       </section>
 
       {/* Our Story - Ancient Wisdom */}
-      <section className="py-20 md:py-48 bg-white relative overflow-hidden">
+      <section className="py-16 sm:py-20 md:py-48 bg-white relative overflow-hidden">
         <div className="container-content relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 md:gap-20 lg:gap-32 items-center">
             <motion.div
               style={{ y: parallaxY }}
               className="relative order-2 lg:order-1"
             >
-              <div className="relative aspect-[3/4] rounded-[2rem] md:rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-4 md:border-8 border-white group">
+              <div className="relative aspect-[3/4] rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[4rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.1)] border-4 md:border-8 border-white group">
                 <img
                   src="/assets/natural-ingredients.png"
                   alt="HerbsEra craftsmanship"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-emerald-950/20" />
-                <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 bg-white/80 backdrop-blur-3xl p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border border-white translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
-                  <p className="text-emerald-950 font-body italic text-base md:text-lg leading-relaxed">
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 md:bottom-12 md:left-12 md:right-12 bg-white/80 backdrop-blur-3xl p-4 sm:p-6 md:p-10 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[3rem] border border-white translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+                  <p className="text-emerald-950 font-body italic text-sm sm:text-base md:text-lg leading-relaxed">
                     "Every bar is a manifestation of crystalline purity and botanical soul."
                   </p>
                 </div>
               </div>
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-lime-400 opacity-20 rounded-full blur-[80px]" />
+              <div className="absolute -bottom-6 sm:-bottom-10 -right-6 sm:-right-10 w-24 sm:w-40 h-24 sm:h-40 bg-lime-400 opacity-20 rounded-full blur-[60px] sm:blur-[80px]" />
             </motion.div>
 
             <div className="order-1 lg:order-2">
               <motion.span 
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="text-[11px] font-headline font-black uppercase tracking-[0.4em] text-emerald-900/40 mb-6 block"
+                className="text-[10px] sm:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-emerald-900/40 mb-4 sm:mb-6 block"
               >
                 Our Sacred Origin
               </motion.span>
@@ -189,7 +189,7 @@ const Index = () => {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl md:text-6xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-8 md:mb-10"
+                className="text-2xl sm:text-3xl md:text-6xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-6 sm:mb-8 md:mb-10"
               >
                 Ancient <br/><span className="text-emerald-900/30">Wisdom</span>
               </motion.h2>
@@ -197,7 +197,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl font-body text-emerald-950/70 mb-8 md:mb-10 leading-relaxed font-medium"
+                className="text-base sm:text-lg md:text-xl font-body text-emerald-950/70 mb-6 sm:mb-8 md:mb-10 leading-relaxed font-medium"
               >
                 In a world drowning in synthetic noise, HerbsEra is a sanctuary of silence and purity. We don't just make soap; we crystallize nature's healing essence.
               </motion.p>
@@ -205,13 +205,13 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="flex flex-col gap-8"
+                className="flex flex-col gap-6 sm:gap-8"
               >
-                <p className="text-emerald-950/60 leading-loose">
+                <p className="text-sm sm:text-base text-emerald-950/60 leading-relaxed">
                   Our journey began with a simple revelation: that skin care should be a ritual of rejuvenation. By blending gemstone vibrations with rare botanical extracts, we've created India's first gemstone soaps that detoxify both your body and spirit.
                 </p>
-                <Link to="/about" className="group flex items-center gap-4 text-emerald-950 font-headline font-black text-[11px] uppercase tracking-[0.3em] transition-all">
-                  Deep Dive Into Our Story <ChevronRight size={18} className="text-lime-500 transition-transform group-hover:translate-x-2" />
+                <Link to="/about" className="group flex items-center gap-3 sm:gap-4 text-emerald-950 font-headline font-black text-[10px] sm:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.3em] transition-all">
+                  Deep Dive Into Our Story <ChevronRight size={16} className="text-lime-500 transition-transform group-hover:translate-x-2" />
                 </Link>
               </motion.div>
             </div>
@@ -220,7 +220,7 @@ const Index = () => {
       </section>
 
       {/* CTA - The Final Transformation */}
-      <section className="py-24 md:py-48 bg-emerald-950 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-48 bg-emerald-950 relative overflow-hidden">
         {/* Cinematic background */}
         <div className="absolute inset-0">
           <img src="/assets/soap-hero.png" className="w-full h-full object-cover opacity-20 scale-110 blur-sm" />
@@ -231,16 +231,16 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="max-w-4xl mx-auto border border-white/10 bg-white/5 backdrop-blur-[100px] px-6 py-16 md:p-20 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl"
+            className="max-w-4xl mx-auto border border-white/10 bg-white/5 backdrop-blur-[100px] px-6 sm:px-8 py-12 sm:py-16 md:p-20 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] shadow-2xl"
           >
-            <h2 className="text-4xl md:text-7xl font-headline font-black text-white uppercase tracking-tighter leading-none mb-8 md:mb-10">
+            <h2 className="text-3xl sm:text-4xl md:text-7xl font-headline font-black text-white uppercase tracking-tighter leading-none mb-6 sm:mb-8 md:mb-10">
               Ready To <br/><span className="text-lime-400">Glow?</span>
             </h2>
-            <p className="text-lg md:text-xl text-white/50 font-body mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-white/50 font-body mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed">
               Join the crystalline revolution. Experience skin that doesn't just look healthy—it feels alive.
             </p>
-            <Link to="/products" className="inline-flex items-center gap-4 bg-white text-emerald-950 px-12 py-5 md:px-16 md:py-6 rounded-full font-headline font-black text-[10px] md:text-xs uppercase tracking-[0.3em] hover:bg-lime-400 hover:scale-110 active:scale-95 transition-all shadow-2xl">
-              Start The Ritual <ArrowRight size={20} className="text-emerald-900" />
+            <Link to="/products" className="inline-flex items-center gap-3 sm:gap-4 bg-white text-emerald-950 px-8 sm:px-12 py-4 sm:py-5 md:px-16 md:py-6 rounded-full font-headline font-black text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:bg-lime-400 hover:scale-105 active:scale-95 transition-all shadow-2xl">
+              Start The Ritual <ArrowRight size={16} className="text-emerald-900" />
             </Link>
           </motion.div>
         </div>
