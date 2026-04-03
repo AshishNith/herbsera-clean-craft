@@ -51,22 +51,22 @@ const Header = () => {
       animate={{ y: 0 }}
       className={`fixed z-[100] transition-all duration-500 inset-x-0 mx-auto
         ${isScrolled 
-          ? 'top-4 w-[calc(100%-2rem)] md:w-[95%] lg:w-[90%] max-w-7xl rounded-full bg-emerald-950/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 py-3' 
-          : `top-0 w-full py-6 ${isDarkCanvas ? 'bg-transparent' : 'bg-emerald-900 border-b border-white/5'}`
+          ? `top-4 w-[calc(100%-1.5rem)] md:w-[95%] lg:w-[90%] max-w-7xl bg-emerald-950/95 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 py-3 ${isOpen ? 'rounded-[2rem]' : 'rounded-full'}` 
+          : `top-0 w-full py-6 ${isDarkCanvas ? 'bg-transparent' : 'bg-emerald-900 border-b border-white/5'} rounded-none`
         }
       `}
     >
       <div className="relative flex justify-between items-center w-full max-w-7xl mx-auto px-6 md:px-10">
         {/* Brand Identity */}
-        <Link to="/" className="flex items-center gap-3 group shrink-0 z-10">
-          <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
-            <span className="material-symbols-outlined text-amber-500 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 z-10">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
+            <span className="material-symbols-outlined text-amber-500 text-xl sm:text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
           </div>
-          <div className="text-white text-xl md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
+          <div className="text-white text-lg sm:text-xl md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
         </Link>
         
         {/* Desktop Navigation - Perfectly Centered using Absolute Positioning */}
-        <nav className="hidden xl:flex absolute left-1/2 -translate-x-1/2 gap-8 items-center bg-white/5 px-8 py-2.5 rounded-full border border-white/10 backdrop-blur-md z-0">
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 gap-8 items-center bg-white/5 px-8 py-2.5 rounded-full border border-white/10 backdrop-blur-md z-0">
           {navLinks.map((link) => (
             <Link 
               key={link.path}
@@ -94,7 +94,7 @@ const Header = () => {
           </Link>
 
           {/* User Profile / Login */}
-          <div className="hidden xl:flex items-center">
+          <div className="hidden lg:flex items-center">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -136,9 +136,9 @@ const Header = () => {
           {/* Mobile Menu Toggle */}
           <button 
             onClick={toggleMenu} 
-            className="xl:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all active:scale-90"
+            className="lg:hidden flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all active:scale-90"
           >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
@@ -150,7 +150,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden w-full overflow-hidden bg-emerald-950/98 backdrop-blur-3xl border-t border-white/5 shadow-2xl"
+            className="lg:hidden w-full overflow-hidden bg-emerald-950/98 backdrop-blur-3xl border-t border-white/5 shadow-2xl rounded-b-[2rem]"
           >
             <div className="px-8 pb-12 pt-8 flex flex-col gap-8 text-left">
               {navLinks.map((link, i) => (
@@ -163,7 +163,7 @@ const Header = () => {
                   <Link 
                     to={link.path} 
                     onClick={toggleMenu}
-                    className={`font-headline font-black text-3xl uppercase tracking-[0.2em] transition-all flex items-center gap-4 ${isActive(link.path) ? 'text-lime-400' : 'text-stone-300'}`}
+                    className={`font-headline font-black text-2xl sm:text-3xl uppercase tracking-[0.2em] transition-all flex items-center gap-4 ${isActive(link.path) ? 'text-lime-400' : 'text-stone-300'}`}
                   >
                     <span className="text-[10px] text-white/20 font-black">0{i+1}</span>
                     {link.label}
@@ -181,7 +181,7 @@ const Header = () => {
                   <Link 
                     to="/login" 
                     onClick={toggleMenu} 
-                    className="bg-lime-400 text-emerald-950 py-6 rounded-3xl font-headline font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-lime-400/20 text-center active:scale-95 transition-all"
+                    className="bg-lime-400 text-emerald-950 py-5 rounded-2xl font-headline font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-lime-400/20 text-center active:scale-95 transition-all"
                   >
                     Login / Join
                   </Link>
