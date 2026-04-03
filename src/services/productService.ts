@@ -8,7 +8,11 @@ export interface Product {
   benefit?: string;
   price: number;
   comparePrice?: number;
-  images: string[];
+  images: Array<{
+    url: string;
+    alt?: string;
+    publicId?: string;
+  }>;
   category: string;
   ingredients?: Array<{
     name: string;

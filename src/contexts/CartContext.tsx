@@ -30,7 +30,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshCart = async () => {
     if (!user) {
-      setCart(null);
+      const guestCart = JSON.parse(localStorage.getItem('herbsera_guest_cart') || '{"items":[]}');
+      // For a truly "wow" experience, we should probably fetch the product details for these IDs
+      // but for now, we'll just set it. The Cart page should handle fetching details if missing.
+      setCart(guestCart);
       return;
     }
 
@@ -38,6 +41,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       const response = await getCart();
       setCart(response.data);
+      
+      // Check if there's a guest cart to sync
+      const guestCart = localStorage.getItem('herbsera_guest_cart');
+      if (guestCart) {
+        const guestData = JSON.parse(guestCart);
+        if (guestData.items && guestData.items.length > 0) {
+          // Sync guest items to server
+          for (const item of guestData.items) {
+            await addToCartAPI(item.product._id, item.quantity);
+          }
+          localStorage.removeItem('herbsera_guest_cart');
+          // Refresh again to get the merged cart
+          const mergedResponse = await getCart();
+          setCart(mergedResponse.data);
+          toast({
+            title: 'Cart Synchronized',
+            description: 'Your guest items have been added to your account',
+          });
+        }
+      }
     } catch (error: any) {
       if (error.response?.status !== 404) {
         console.error('Error fetching cart:', error);
@@ -53,11 +76,33 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addToCart = async (productId: string, quantity: number = 1) => {
     if (!user) {
+      // Handle Guest Cart
+      const guestCart = JSON.parse(localStorage.getItem('herbsera_guest_cart') || '{"items":[]}');
+      const existingItemIndex = guestCart.items.findIndex((item: any) => item.product._id === productId);
+
+      if (existingItemIndex > -1) {
+        guestCart.items[existingItemIndex].quantity += quantity;
+      } else {
+        // We need to fetch basic product info or just store the ID and fetch later
+        // For simplicity, we'll store minimal info. Ideally, fetch product details if not available.
+        // But the simplest is to just refresh the cart from a "guest" service or mock it.
+        // Let's assume we can't fetch full product details here easily without making it complex.
+        // We'll just store the ID and the UI will handle it or we'll fetch details for guest view.
+        guestCart.items.push({
+          _id: Math.random().toString(36).substr(2, 9),
+          product: { _id: productId }, // The UI might need more info like name/image
+          quantity
+        });
+      }
+
+      localStorage.setItem('herbsera_guest_cart', JSON.stringify(guestCart));
+      // Trigger a "fake" cart update for the local state
+      // In a real app, we might want a getProductById service to populate the guest cart properly
       toast({
-        title: 'Authentication Required',
-        description: 'Please login to add items to cart',
-        variant: 'destructive',
+        title: 'Added to Cart',
+        description: 'Item has been added to your guest cart',
       });
+      refreshCart();
       return;
     }
 

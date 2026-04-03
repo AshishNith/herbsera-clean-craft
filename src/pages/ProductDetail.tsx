@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import useEmblaCarousel from 'embla-carousel-react';
 import { getProductBySlug } from '@/services/productService';
 import { useCart } from '@/contexts/CartContext';
 import Header from '@/components/Header';
@@ -10,7 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Star, ShoppingCart, Heart, Truck, Shield, Leaf, Minus, Plus } from 'lucide-react';
+import { Star, ShoppingCart, Heart, Truck, Shield, Leaf, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useCallback, useEffect } from 'react';
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -18,6 +19,24 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedImage(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
+
+  const scrollTo = (index: number) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+    setSelectedImage(index);
+  };
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['product', slug],
@@ -83,7 +102,7 @@ const ProductDetail = () => {
   const totalReviews = product.ratings?.count || 0;
 
   return (
-    <div className="min-h-screen mt-10 bg-cream">
+    <div className="min-h-screen pt-28 bg-cream">
       <Header />
       
       <div className="container mx-auto px-4 py-12">
@@ -101,24 +120,67 @@ const ProductDetail = () => {
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           {/* Product Images */}
           <div className="space-y-4">
-            <div className="aspect-square bg-cream-dark rounded-lg overflow-hidden">
-              <img
-                src={product.images[selectedImage]?.url}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative aspect-square bg-white rounded-2xl overflow-hidden border border-cream-dark shadow-sm group">
+              <div className="h-full w-full overflow-hidden" ref={emblaRef}>
+                <div className="flex h-full w-full">
+                  {product.images.map((image, index) => (
+                    <div key={index} className="relative flex-[0_0_100%] h-full w-full">
+                      <img
+                        src={image.url}
+                        alt={`${product.name} ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Navigation Arrows (Visible on Hover/Desktop) */}
+              {product.images.length > 1 && (
+                <>
+                  <button 
+                    onClick={() => emblaApi?.scrollPrev()}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm border border-cream-dark flex items-center justify-center text-forest opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button 
+                    onClick={() => emblaApi?.scrollNext()}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm border border-cream-dark flex items-center justify-center text-forest opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </>
+              )}
+
+              {/* Mobile Pagination Dots */}
+              {product.images.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 md:hidden z-10">
+                  {product.images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => scrollTo(index)}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        selectedImage === index ? 'bg-forest w-4' : 'bg-forest/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
+
+            {/* Thumbnails */}
             {product.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
                 {product.images.map((image, index) => (
                   <button
                     key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`aspect-square bg-cream-dark rounded-lg overflow-hidden border-2 ${
-                      selectedImage === index ? 'border-forest' : 'border-transparent'
+                    onClick={() => scrollTo(index)}
+                    className={`flex-shrink-0 w-20 h-20 bg-white rounded-xl overflow-hidden border-2 transition-all ${
+                      selectedImage === index ? 'border-forest ring-2 ring-forest/20' : 'border-transparent'
                     }`}
                   >
-                    <img src={image.url} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
+                    <img src={image.url} alt={`${product.name} thumbnail ${index + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>

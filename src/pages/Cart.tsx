@@ -14,7 +14,7 @@ const Cart = () => {
 
   if (!user) {
     return (
-      <div className="mt-20  bg-cream flex flex-col">
+      <div className="min-h-screen pt-28 bg-cream flex flex-col">
         <Header />
         <div className="flex-1 flex mb-20 items-center justify-center px-4">
           <div className="text-center">
@@ -31,7 +31,7 @@ const Cart = () => {
 
   if (loading && !cart) {
     return (
-      <div className="min-h-screen bg-cream flex flex-col">
+      <div className="min-h-screen pt-28 bg-cream flex flex-col">
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="animate-pulse text-charcoal-light">Loading cart...</div>
@@ -44,7 +44,7 @@ const Cart = () => {
   const isEmpty = !cart || cart.items.length === 0;
 
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
+    <div className="min-h-screen pt-28 bg-cream flex flex-col">
       <Header />
       
       <div className="flex-1 container mx-auto px-4 py-12">

@@ -60,7 +60,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
+    <div className="min-h-screen pt-28 bg-cream flex flex-col">
       <Header />
       
       <div className="flex-1 mt-10 flex items-center justify-center px-4 py-12">

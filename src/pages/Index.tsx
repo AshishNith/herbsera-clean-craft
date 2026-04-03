@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Leaf, Droplets, Shield, Heart } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ChevronRight, ArrowRight, ShieldCheck, Leaf, Heart, Recycle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import TrustBadge from "@/components/TrustBadge";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import { getFeaturedProducts } from "@/services/productService";
 
-import heroBg from "@/assets/hero-bg.jpg";
-import soapNeem from "@/assets/soap-neem.jpg";
+// Fallback high-end products if the backend is empty
+const sampleProducts = [
+  { _id: '1', slug: 'emerald-neem', name: 'Emerald Neem Jewel', benefit: 'Deep detoxification & pore refinement', price: 999, images: [{ url: '/assets/soap-hero.png' }], stock: 10 },
+  { _id: '2', slug: 'amethyst-lavender', name: 'Amethyst Lavender', benefit: 'Calming aromatherapy & skin soothing', price: 1299, images: [{ url: '/assets/natural-ingredients.png' }], stock: 5 },
+  { _id: '3', slug: 'ruby-rose', name: 'Ruby Rose Quartz', benefit: 'Anti-aging glow & gentle hydration', price: 1499, images: [{ url: '/assets/soap-hero.png' }], stock: 8 },
+  { _id: '4', slug: 'citrine-charcoal', name: 'Citrine Charcoal', benefit: 'Deep cleansing & energetic detox', price: 1199, images: [{ url: '/assets/natural-ingredients.png' }], stock: 12 },
+];
 
 const Index = () => {
   const { data: featuredData, isLoading } = useQuery({
@@ -17,193 +23,218 @@ const Index = () => {
     queryFn: getFeaturedProducts,
   });
 
-  const featuredProducts = featuredData?.data || [];
+  const { scrollYProgress } = useScroll();
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -200]);
+
+  const featuredProducts = featuredData?.data && featuredData.data.length > 0 ? featuredData.data : sampleProducts;
 
   const trustBadges = [
-    {
-      icon: Leaf,
-      title: "100% Herbal",
-      description: "Made with pure plant-based ingredients sourced ethically",
-    },
-    {
-      icon: Droplets,
-      title: "No Harsh Chemicals",
-      description: "Free from parabens, sulfates, and artificial additives",
-    },
-    {
-      icon: Shield,
-      title: "Dermatologically Safe",
-      description: "Gentle formulas tested for all skin types",
-    },
-    {
-      icon: Heart,
-      title: "Eco-Friendly",
-      description: "Sustainable packaging and cruelty-free practices",
-    },
+    { icon: "eco", title: "100% Herbal", description: "Made with pure plant-based ingredients sourced ethically" },
+    { icon: "potted_plant", title: "No Chemicals", description: "Free from parabens, sulfates, and artificial additives" },
+    { icon: "verified", title: "Dermatological", description: "Gentle formulas tested for all skin types" },
+    { icon: "nature", title: "Eco-Friendly", description: "Sustainable packaging and cruelty-free practices" },
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20">
-        <div className="absolute inset-0">
-          <img
-            src={heroBg}
-            alt="Herbsera natural soaps"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/80 to-transparent" />
-        </div>
+      <HeroSlideshow />
 
+      {/* Trust Badges - The Botanical Promise */}
+      <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-50 opacity-20 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+        
         <div className="container-content relative z-10">
-          <div className="max-w-2xl">
-            <span className="inline-block text-sage font-medium tracking-widest uppercase text-sm mb-4 animate-fade-up">
-              Natural Skincare
-            </span>
-            <h1 className="heading-display text-charcoal mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-              Pure by Nature.
-              <br />
-              <span className="text-forest">Crafted for Your Skin.</span>
-            </h1>
-            <p className="text-body max-w-lg mb-8 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-              Plant-based herbal soaps made with care, science, and
-              sustainability. Experience the transformative power of nature in
-              your daily ritual.
-            </p>
-            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-              <Button variant="hero" asChild>
-                <Link to="/products">Shop Now</Link>
-              </Button>
-              <Button variant="heroOutline" asChild>
-                <Link to="/ingredients">Explore Ingredients</Link>
-              </Button>
-            </div>
+          <div className="text-center mb-20 max-w-2xl mx-auto">
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-[11px] font-headline font-black uppercase tracking-[0.4em] text-emerald-900/40 mb-4 block"
+            >
+              Why Choose HerbsEra
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-5xl font-headline font-black text-emerald-950 uppercase tracking-tight leading-[1.1]"
+            >
+              The Botanical <br/><span className="text-emerald-900/50">Promise</span>
+            </motion.h2>
           </div>
-        </div>
-      </section>
 
-      {/* Trust Badges Section */}
-      <section className="section-padding bg-cream-dark">
-        <div className="container-content">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {trustBadges.map((badge, index) => (
               <TrustBadge
                 key={badge.title}
                 icon={badge.icon}
                 title={badge.title}
                 description={badge.description}
+                delay={index * 0.1}
               />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products Section */}
-      <section className="section-padding">
-        <div className="container-content">
-          <div className="text-center mb-16">
-            <span className="inline-block text-sage font-medium tracking-widest uppercase text-sm mb-4">
-              Our Collection
-            </span>
-            <h2 className="heading-section text-charcoal">
-              Handcrafted with Care
-            </h2>
+      {/* Featured Collection - Crystalline Collection */}
+      <section className="py-24 md:py-40 bg-emerald-950 overflow-hidden relative">
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+          <div className="absolute top-20 right-10 w-96 h-96 bg-lime-400 rounded-full blur-[150px]" />
+          <div className="absolute bottom-20 left-10 w-96 h-96 bg-emerald-700 rounded-full blur-[150px]" />
+        </div>
+
+        <div className="container-content relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+            <div className="text-left">
+              <motion.span 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="text-[11px] font-headline font-black uppercase tracking-[0.4em] text-white/40 mb-4 block"
+              >
+                Crystalline Collection
+              </motion.span>
+              <motion.h2 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl md:text-7xl font-headline font-black text-white uppercase tracking-tighter leading-none"
+              >
+                Gems For <br/><span className="text-lime-400">Your Skin</span>
+              </motion.h2>
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link to="/products" className="group flex items-center gap-4 bg-white/5 border border-white/20 px-10 py-5 rounded-full text-white font-headline font-black text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all shadow-2xl">
+                Explore Full Universe <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {isLoading ? (
-              // Loading skeleton
               [...Array(4)].map((_, index) => (
-                <div key={index} className="animate-pulse">
-                  <div className="aspect-square bg-cream-dark rounded-lg mb-4"></div>
-                  <div className="h-4 bg-cream-dark rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-cream-dark rounded w-1/2"></div>
+                <div key={index} className="animate-pulse flex flex-col gap-6">
+                  <div className="aspect-[4/5] bg-white/5 rounded-[3rem]"></div>
+                  <div className="h-4 bg-white/5 rounded full w-3/4 mx-auto"></div>
+                  <div className="h-4 bg-white/5 rounded full w-1/2 mx-auto"></div>
                 </div>
               ))
             ) : (
-              featuredProducts.slice(0, 4).map((product) => (
+              featuredProducts.slice(0, 4).map((product, index) => (
                 <ProductCard
                   key={product._id}
                   id={product._id}
                   slug={product.slug}
                   name={product.name}
-                  benefit={product.benefit || product.description?.substring(0, 50)}
+                  benefit={product.benefit}
                   price={product.price}
-                  image={product.images[0]?.url || soapNeem}
+                  image={product.images[0]?.url}
                   stock={product.stock}
+                  delay={index * 0.1}
                 />
               ))
             )}
           </div>
-
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/products">View All Products</Link>
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* Why Herbsera Section */}
-      <section className="section-padding bg-forest text-cream">
-        <div className="container-content">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block text-sage font-medium tracking-widest uppercase text-sm mb-4">
-                Our Story
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6 text-cream">
-                Why Herbsera?
-              </h2>
-              <p className="text-cream/80 text-lg leading-relaxed mb-6">
-                In a world of synthetic products, we chose a different path.
-                Herbsera was born from a simple belief: your skin deserves the
-                purest care nature can offer.
-              </p>
-              <p className="text-cream/80 leading-relaxed mb-8">
-                Each bar is a blend of ancient herbal wisdom and modern
-                skincare science. We source our ingredients from trusted organic
-                farms, ensuring every product delivers the authentic goodness of
-                nature without compromise.
-              </p>
-              <Button
-                variant="heroOutline"
-                className="border-cream text-cream hover:bg-cream hover:text-forest"
-                asChild
-              >
-                <Link to="/about">Learn More About Us</Link>
-              </Button>
-            </div>
-            <div className="relative">
-              <div className="aspect-square rounded-3xl overflow-hidden shadow-elevated">
+      {/* Our Story - Ancient Wisdom */}
+      <section className="py-24 md:py-48 bg-white relative overflow-hidden">
+        <div className="container-content relative z-10">
+          <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+            <motion.div
+              style={{ y: parallaxY }}
+              className="relative order-2 lg:order-1"
+            >
+              <div className="relative aspect-[3/4] rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-8 border-white group">
                 <img
-                  src={soapNeem}
-                  alt="Herbsera craftsmanship"
-                  className="w-full h-full object-cover"
+                  src="/assets/natural-ingredients.png"
+                  alt="HerbsEra craftsmanship"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-emerald-950/20" />
+                <div className="absolute bottom-12 left-12 right-12 bg-white/80 backdrop-blur-3xl p-10 rounded-[3rem] border border-white translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+                  <p className="text-emerald-950 font-body italic text-lg leading-relaxed">
+                    "Every bar is a manifestation of crystalline purity and botanical soul."
+                  </p>
+                </div>
               </div>
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-sage/20 rounded-full blur-3xl" />
-              <div className="absolute -top-6 -right-6 w-40 h-40 bg-gold/10 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-lime-400 opacity-20 rounded-full blur-[80px]" />
+            </motion.div>
+
+            <div className="order-1 lg:order-2">
+              <motion.span 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="text-[11px] font-headline font-black uppercase tracking-[0.4em] text-emerald-900/40 mb-6 block"
+              >
+                Our Sacred Origin
+              </motion.span>
+              <motion.h2 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl md:text-7xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-10"
+              >
+                Ancient <br/><span className="text-emerald-900/30">Wisdom</span>
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl font-body text-emerald-950/70 mb-10 leading-relaxed font-medium"
+              >
+                In a world drowning in synthetic noise, HerbsEra is a sanctuary of silence and purity. We don't just make soap; we crystallize nature's healing essence.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-col gap-8"
+              >
+                <p className="text-emerald-950/60 leading-loose">
+                  Our journey began with a simple revelation: that skin care should be a ritual of rejuvenation. By blending gemstone vibrations with rare botanical extracts, we've created India's first gemstone soaps that detoxify both your body and spirit.
+                </p>
+                <Link to="/about" className="group flex items-center gap-4 text-emerald-950 font-headline font-black text-[11px] uppercase tracking-[0.3em] transition-all">
+                  Deep Dive Into Our Story <ChevronRight size={18} className="text-lime-500 transition-transform group-hover:translate-x-2" />
+                </Link>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-sage-light">
-        <div className="container-content text-center">
-          <h2 className="heading-section text-charcoal mb-4">
-            Ready to Transform Your Skincare?
-          </h2>
-          <p className="text-charcoal-light text-lg max-w-2xl mx-auto mb-8">
-            Join thousands of happy customers who have made the switch to pure,
-            natural skincare. Your skin will thank you.
-          </p>
-          <Button variant="hero" asChild>
-            <Link to="/products">Shop the Collection</Link>
-          </Button>
+      {/* CTA - The Final Transformation */}
+      <section className="py-24 md:py-48 bg-emerald-950 relative overflow-hidden">
+        {/* Cinematic background */}
+        <div className="absolute inset-0">
+          <img src="/assets/soap-hero.png" className="w-full h-full object-cover opacity-20 scale-110 blur-sm" />
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/80 to-emerald-950" />
+        </div>
+        
+        <div className="container-content relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="max-w-4xl mx-auto border border-white/10 bg-white/5 backdrop-blur-[100px] p-20 rounded-[4rem] shadow-2xl"
+          >
+            <h2 className="text-5xl md:text-8xl font-headline font-black text-white uppercase tracking-tighter leading-none mb-10">
+              Ready To <br/><span className="text-lime-400">Glow?</span>
+            </h2>
+            <p className="text-xl text-white/50 font-body mb-12 max-w-2xl mx-auto leading-relaxed">
+              Join the crystalline revolution. Experience skin that doesn't just look healthy—it feels alive.
+            </p>
+            <Link to="/products" className="inline-flex items-center gap-4 bg-white text-emerald-950 px-16 py-6 rounded-full font-headline font-black text-xs uppercase tracking-[0.3em] hover:bg-lime-400 hover:scale-110 active:scale-95 transition-all shadow-2xl">
+              Start The Ritual <ArrowRight size={20} className="text-emerald-900" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
