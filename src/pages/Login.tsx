@@ -60,18 +60,18 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 bg-cream flex flex-col">
+    <div className="min-h-screen pt-20 sm:pt-28 bg-cream flex flex-col">
       <Header />
       
-      <div className="flex-1 mt-10 flex items-center justify-center px-4 py-12">
+      <div className="flex-1 mt-6 sm:mt-10 flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
         <div className="w-full max-w-md">
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="text-center mb-8">
-              <h1 className="font-serif text-3xl font-medium text-charcoal mb-2">Welcome Back</h1>
-              <p className="text-charcoal-light">Login to your HerbsEra account</p>
+          <div className="bg-white rounded-lg sm:rounded-xl shadow-lg p-6 sm:p-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h1 className="font-serif text-2xl sm:text-3xl font-medium text-charcoal mb-2">Welcome Back</h1>
+              <p className="text-charcoal-light text-sm sm:text-base">Login to your HerbsEra account</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <Input

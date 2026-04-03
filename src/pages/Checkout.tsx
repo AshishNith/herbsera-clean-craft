@@ -86,19 +86,19 @@ const Checkout = () => {
     <div className="min-h-screen bg-cream flex flex-col">
       <Header />
       
-      <div className="flex-1 container mx-auto px-4 py-12">
-        <h1 className="font-serif text-4xl font-medium text-charcoal mb-8">Checkout</h1>
+      <div className="flex-1 container mx-auto px-3 sm:px-4 py-8 sm:py-12">
+        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-medium text-charcoal mb-6 sm:mb-8">Checkout</h1>
 
         <form onSubmit={handlePlaceOrder}>
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Checkout Form */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-5 sm:space-y-6">
               {/* Shipping Address */}
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h2 className="font-serif text-xl font-medium mb-4">Shipping Address</h2>
+              <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-sm">
+                <h2 className="font-serif text-lg sm:text-xl font-medium mb-4">Shipping Address</h2>
                 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="md:col-span-2">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="sm:col-span-2">
                     <Label htmlFor="name">Full Name</Label>
                     <Input
                       id="name"
@@ -109,7 +109,7 @@ const Checkout = () => {
                     />
                   </div>
 
-                  <div className="md:col-span-2">
+                  <div className="sm:col-span-2">
                     <Label htmlFor="phone">Phone Number</Label>
                     <Input
                       id="phone"

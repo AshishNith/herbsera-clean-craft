@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import TrustBadge from "@/components/TrustBadge";
 import HeroSlideshow from "@/components/HeroSlideshow";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { HoleBackground } from "@/components/ui/hole-background";
 import { getFeaturedProducts } from "@/services/productService";
 import SEO from "@/components/SEO";
 
@@ -153,70 +155,70 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Our Story - Ancient Wisdom */}
-      <section className="py-16 sm:py-20 md:py-48 bg-white relative overflow-hidden">
-        <div className="container-content relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 md:gap-20 lg:gap-32 items-center">
-            <motion.div
-              style={{ y: parallaxY }}
-              className="relative order-2 lg:order-1"
-            >
-              <div className="relative aspect-[3/4] rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[4rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.1)] border-4 md:border-8 border-white group">
-                <img
-                  src="/assets/natural-ingredients.png"
-                  alt="HerbsEra craftsmanship"
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-emerald-950/20" />
-                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 md:bottom-12 md:left-12 md:right-12 bg-white/80 backdrop-blur-3xl p-4 sm:p-6 md:p-10 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[3rem] border border-white translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
-                  <p className="text-emerald-950 font-body italic text-sm sm:text-base md:text-lg leading-relaxed">
-                    "Every bar is a manifestation of crystalline purity and botanical soul."
-                  </p>
-                </div>
-              </div>
-              <div className="absolute -bottom-6 sm:-bottom-10 -right-6 sm:-right-10 w-24 sm:w-40 h-24 sm:h-40 bg-lime-400 opacity-20 rounded-full blur-[60px] sm:blur-[80px]" />
-            </motion.div>
-
-            <div className="order-1 lg:order-2">
+      {/* Our Story - Ancient Wisdom with Scroll Animation */}
+      <section className="bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+          <div className="absolute top-40 left-10 w-96 h-96 bg-emerald-200 rounded-full blur-[120px]" />
+          <div className="absolute bottom-40 right-10 w-96 h-96 bg-lime-100 rounded-full blur-[120px]" />
+        </div>
+        
+        <ContainerScroll
+          titleComponent={
+            <div className="flex flex-col items-center">
               <motion.span 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 className="text-[10px] sm:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-emerald-900/40 mb-4 sm:mb-6 block"
               >
                 Our Sacred Origin
               </motion.span>
               <motion.h2 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-2xl sm:text-3xl md:text-6xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-6 sm:mb-8 md:mb-10"
+                className="text-3xl sm:text-4xl md:text-7xl font-headline font-black text-emerald-950 uppercase tracking-tighter leading-none mb-6 sm:mb-8"
               >
                 Ancient <br/><span className="text-emerald-900/30">Wisdom</span>
               </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-base sm:text-lg md:text-xl font-body text-emerald-950/70 mb-6 sm:mb-8 md:mb-10 leading-relaxed font-medium"
-              >
-                In a world drowning in synthetic noise, HerbsEra is a sanctuary of silence and purity. We don't just make soap; we crystallize nature's healing essence.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-col gap-6 sm:gap-8"
-              >
-                <p className="text-sm sm:text-base text-emerald-950/60 leading-relaxed">
-                  Our journey began with a simple revelation: that skin care should be a ritual of rejuvenation. By blending gemstone vibrations with rare botanical extracts, we've created India's first gemstone soaps that detoxify both your body and spirit.
-                </p>
-                <Link to="/about" className="group flex items-center gap-3 sm:gap-4 text-emerald-950 font-headline font-black text-[10px] sm:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.3em] transition-all">
-                  Deep Dive Into Our Story <ChevronRight size={16} className="text-lime-500 transition-transform group-hover:translate-x-2" />
+              <div className="max-w-2xl mx-auto px-4">
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-base sm:text-lg md:text-xl font-body text-emerald-950/70 mb-8 leading-relaxed font-medium"
+                >
+                  In a world drowning in synthetic noise, HerbsEra is a sanctuary of silence and purity. We don't just make soap; we crystallize nature's healing essence.
+                </motion.p>
+              </div>
+            </div>
+          }
+        >
+          <div className="relative h-full w-full group">
+            <img
+              src="/assets/natural-ingredients.png"
+              alt="HerbsEra craftsmanship"
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-emerald-950/10 group-hover:bg-transparent transition-colors duration-700" />
+            
+            {/* Overlay content inside the animated card */}
+            <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8 bg-white/90 backdrop-blur-2xl p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/50 shadow-2xl translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                <div className="flex-1">
+                  <p className="text-emerald-950 font-body italic text-base sm:text-lg md:text-xl leading-relaxed mb-4">
+                    "Every bar is a manifestation of crystalline purity and botanical soul."
+                  </p>
+                  <p className="text-sm text-emerald-900/60 font-body leading-relaxed hidden sm:block">
+                    By blending gemstone vibrations with rare botanical extracts, we've created India's first gemstone soaps that detoxify both your body and spirit.
+                  </p>
+                </div>
+                <Link to="/about" className="whitespace-nowrap group/btn flex items-center gap-3 bg-emerald-950 text-white px-8 py-4 rounded-full font-headline font-black text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all">
+                  Our Story <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </div>
-        </div>
+        </ContainerScroll>
       </section>
 
       {/* CTA - The Final Transformation */}
@@ -231,17 +233,26 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="max-w-4xl mx-auto border border-white/10 bg-white/5 backdrop-blur-[100px] px-6 sm:px-8 py-12 sm:py-16 md:p-20 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] shadow-2xl"
+            className="max-w-4xl mx-auto border border-white/10 bg-white/5 backdrop-blur-[100px] px-6 sm:px-8 py-12 sm:py-16 md:p-20 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-7xl font-headline font-black text-white uppercase tracking-tighter leading-none mb-6 sm:mb-8 md:mb-10">
-              Ready To <br/><span className="text-lime-400">Glow?</span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-white/50 font-body mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed">
-              Join the crystalline revolution. Experience skin that doesn't just look healthy—it feels alive.
-            </p>
-            <Link to="/products" className="inline-flex items-center gap-3 sm:gap-4 bg-white text-emerald-950 px-8 sm:px-12 py-4 sm:py-5 md:px-16 md:py-6 rounded-full font-headline font-black text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:bg-lime-400 hover:scale-105 active:scale-95 transition-all shadow-2xl">
-              Start The Ritual <ArrowRight size={16} className="text-emerald-900" />
-            </Link>
+            <HoleBackground 
+              strokeColor="rgba(16, 185, 129, 0.15)" 
+              particleRGBColor={[190, 242, 100]} 
+              numberOfLines={60}
+              numberOfDiscs={40}
+              className="z-0"
+            />
+            <div className="relative z-10">
+              <h2 className="text-3xl sm:text-4xl md:text-7xl font-headline font-black text-white uppercase tracking-tighter leading-none mb-6 sm:mb-8 md:mb-10">
+                Ready To <br/><span className="text-lime-400">Glow?</span>
+              </h2>
+              <p className="text-base sm:text-lg md:text-xl text-white/50 font-body mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed">
+                Join the crystalline revolution. Experience skin that doesn't just look healthy—it feels alive.
+              </p>
+              <Link to="/products" className="inline-flex items-center gap-3 sm:gap-4 bg-white text-emerald-950 px-8 sm:px-12 py-4 sm:py-5 md:px-16 md:py-6 rounded-full font-headline font-black text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:bg-lime-400 hover:scale-105 active:scale-95 transition-all shadow-2xl">
+                Start The Ritual <ArrowRight size={16} className="text-emerald-900" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
