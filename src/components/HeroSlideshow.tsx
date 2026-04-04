@@ -8,7 +8,7 @@ const slides = [
     title: "Crystalline",
     highlight: "Black Diamond",
     description: "Experience the ultimate detox. Handcrafted with activated bamboo charcoal and gemstone vibrations for a deep, purifying cellular ritual.",
-    image: "/black_diamond_soap_hero_1775207803205.png",
+    image: "/assets/Slide1.png",
     accent: "text-amber-400",
     link: "/products/the-black-diamond-soap"
   },
@@ -17,7 +17,7 @@ const slides = [
     title: "Botanical",
     highlight: "Peridot Frost",
     description: "A breath of glacial air for your skin. Infused with neem and peppermint extracts to refresh, cool, and rejuvenate your spirit.",
-    image: "/peridot_frost_soap_hero_1775207821647.png",
+    image: "/assets/Slide2.png",
     accent: "text-lime-400",
     link: "/products/the-peridot-frost-soap"
   },
@@ -26,7 +26,7 @@ const slides = [
     title: "Atmospheric",
     highlight: "Lavender Glacier",
     description: "Surrender to serene hydration. A calming blend of French lavender and essential minerals that transforms every wash into a moment of mountain peace.",
-    image: "/lavender_glacier_soap_hero_v2_1775207879453.png",
+    image: "/assets/Slide3.png",
     accent: "text-purple-400",
     link: "/products/the-lavender-glacier-soap"
   }
