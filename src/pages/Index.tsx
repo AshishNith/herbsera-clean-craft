@@ -158,7 +158,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950">
+    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950 overflow-x-hidden w-full">
       <SEO 
         title="HerbsEra | Luxury Gemstone Soaps & Ayurvedic Skincare India"
         description="Experience India's first gemstone soaps by HerbsEra. Our Ayurvedic bars blend crystalline energy with botanical purity for deep detoxification and glowing skin."
@@ -248,10 +248,10 @@ const Index = () => {
       {/* Trust Badges - The Botanical Promise */}
       <section 
         ref={trustSectionRef} 
-        className="relative h-auto md:h-[300vh] bg-stone-50 w-full overflow-visible py-12 md:py-0"
+        className="relative h-auto md:h-[300vh] bg-stone-50 w-full overflow-hidden md:overflow-visible py-12 md:py-0"
       >
         {/* Sticky viewport container */}
-        <div className="relative md:sticky md:top-0 h-auto md:h-screen w-full flex items-center overflow-visible md:overflow-hidden">
+        <div className="relative md:sticky md:top-0 h-auto md:h-screen w-full flex items-center overflow-hidden">
           
           {/* Subtle background glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[200px] pointer-events-none" />
@@ -595,47 +595,26 @@ const Index = () => {
         <div className="container-content relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 gap-6">
             <div className="text-left">
-              <motion.span 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-emerald-900/70 mb-3 block"
-              >
+              <span className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-emerald-900/70 mb-3 block">
                 Social Ritual
-              </motion.span>
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-headline font-black text-emerald-950 uppercase tracking-tight leading-[1.05]"
-              >
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-headline font-black text-emerald-950 uppercase tracking-tight leading-[1.05]">
                 Follow The <br/><span className="text-emerald-900/50">Ritual</span>
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-xs sm:text-sm text-stone-500 font-body mt-4 max-w-md"
-              >
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-500 font-body mt-4 max-w-md">
                 See our crystal-infused formulations in action. Tap to watch the ritual and shop the featured products.
-              </motion.p>
+              </p>
             </div>
 
-            <motion.a
+            <a
               href="https://www.instagram.com/herbseraindia/"
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
               className="group flex items-center gap-3 bg-emerald-950 text-white px-6 py-3.5 rounded-full font-headline font-black text-[9px] sm:text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all shadow-xl hover:scale-105 active:scale-95"
             >
               <Instagram size={14} className="group-hover:rotate-12 transition-transform" />
               @herbseraindia
-            </motion.a>
+            </a>
           </div>
 
           {/* Horizontal scroll container with custom styling */}
@@ -647,10 +626,6 @@ const Index = () => {
                 return (
                   <motion.div
                     key={reel.shortcode}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ delay: index * 0.1, duration: 0.6 }}
                     whileHover={{ y: -6 }}
                     onClick={() => setActiveReel(reel)}
                     className="flex-shrink-0 w-[280px] sm:w-[320px] aspect-[9/16] rounded-[2rem] overflow-hidden relative cursor-pointer group shadow-[0_15px_35px_rgba(2,44,34,0.08)] border border-stone-200/50 bg-stone-100 snap-start"
