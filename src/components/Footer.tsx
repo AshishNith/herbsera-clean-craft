@@ -33,15 +33,15 @@ const Footer = () => {
       <div className="container-content relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-8 mb-12 sm:mb-20">
           {/* Brand Column */}
-          <div className="lg:col-span-4">
-            <Link to="/" className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8 group">
+          <div className="lg:col-span-4 text-center sm:text-left flex flex-col items-center sm:items-start">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8 group justify-center sm:justify-start">
               <span className="material-symbols-outlined text-amber-500 text-2xl sm:text-3xl group-hover:rotate-12 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
               <div className="text-xl sm:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
             </Link>
-            <p className="text-white/70 font-body leading-relaxed mb-8 sm:mb-10 max-w-sm text-sm sm:text-base">
+            <p className="text-white/70 font-body leading-relaxed mb-8 sm:mb-10 max-w-sm text-sm sm:text-base mx-auto sm:mx-0">
               Crystallizing nature's healing essence into luxurious rituals. India's first gemstone soaps, crafted for the conscious soul.
             </p>
-            <div className="flex gap-4 sm:gap-5">
+            <div className="flex gap-4 sm:gap-5 justify-center sm:justify-start">
               {[Instagram, Facebook, Twitter, Mail].map((Icon, i) => (
                 <a
                   key={i}
@@ -55,12 +55,12 @@ const Footer = () => {
           </div>
 
           {/* Links Columns */}
-          <div className="sm:col-span-1 lg:col-span-2">
+          <div className="sm:col-span-1 lg:col-span-2 text-center sm:text-left">
             <h4 className="font-headline font-black text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/30 mb-6 sm:mb-8">Shop</h4>
             <ul className="space-y-3 sm:space-y-4">
               {footerLinks.shop.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center group">
+                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center justify-center sm:justify-start group">
                     <span className="w-0 group-hover:w-4 h-[1px] bg-lime-400 transition-all mr-0 group-hover:mr-2" />
                     {link.label}
                   </Link>
@@ -69,12 +69,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="sm:col-span-1 lg:col-span-2">
+          <div className="sm:col-span-1 lg:col-span-2 text-center sm:text-left">
             <h4 className="font-headline font-black text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/30 mb-6 sm:mb-8">Company</h4>
             <ul className="space-y-3 sm:space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center group">
+                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center justify-center sm:justify-start group">
                     <span className="w-0 group-hover:w-4 h-[1px] bg-lime-400 transition-all mr-0 group-hover:mr-2" />
                     {link.label}
                   </Link>
@@ -83,12 +83,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="sm:col-span-2 lg:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-2 text-center sm:text-left">
             <h4 className="font-headline font-black text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/30 mb-6 sm:mb-8">Support</h4>
             <ul className="space-y-3 sm:space-y-4">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center group">
+                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center justify-center sm:justify-start group">
                     <span className="w-0 group-hover:w-4 h-[1px] bg-lime-400 transition-all mr-0 group-hover:mr-2" />
                     {link.label}
                   </Link>
@@ -98,7 +98,7 @@ const Footer = () => {
           </div>
 
           {/* Newsletter Column */}
-          <div className="sm:col-span-2 lg:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-2 text-center sm:text-left">
             <h4 className="font-headline font-black text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/30 mb-6 sm:mb-8">The Circle</h4>
             <p className="text-xs sm:text-sm text-white/60 leading-relaxed mb-4 sm:mb-6">Join our inner circle for exclusive rituals and arrivals.</p>
             <div className="relative">
