@@ -173,10 +173,10 @@ const Index = () => {
       {/* Trust Badges - The Botanical Promise */}
       <section 
         ref={trustSectionRef} 
-        className="relative h-[250vh] md:h-[300vh] bg-stone-50 w-full overflow-visible"
+        className="relative h-auto md:h-[300vh] bg-stone-50 w-full overflow-visible py-12 md:py-0"
       >
         {/* Sticky viewport container */}
-        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
+        <div className="relative md:sticky md:top-0 h-auto md:h-screen w-full flex items-center overflow-visible md:overflow-hidden">
           
           {/* Subtle background glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[200px] pointer-events-none" />
@@ -282,9 +282,9 @@ const Index = () => {
             <div className="w-full md:w-[50%] flex-grow flex justify-center items-center overflow-visible">
               
               {/* Mobile View: Vertical list */}
-              <div className="flex flex-col gap-6 md:hidden w-full px-2 max-h-[60vh] overflow-y-auto pr-4 scrollbar-thin">
+              <div className="flex flex-col gap-6 md:hidden w-full px-2 mt-6">
                 {trustBadges.map((badge, index) => (
-                  <div key={badge.title} className="w-full h-[380px]">
+                  <div key={badge.title} className="w-full h-auto min-h-[380px]">
                     <TrustBadge
                       number={badge.number}
                       image={badge.image}
