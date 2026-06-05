@@ -38,7 +38,7 @@ const Footer = () => {
               <span className="material-symbols-outlined text-amber-500 text-2xl sm:text-3xl group-hover:rotate-12 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
               <div className="text-xl sm:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
             </Link>
-            <p className="text-white/50 font-body leading-relaxed mb-8 sm:mb-10 max-w-sm text-sm sm:text-base">
+            <p className="text-white/70 font-body leading-relaxed mb-8 sm:mb-10 max-w-sm text-sm sm:text-base">
               Crystallizing nature's healing essence into luxurious rituals. India's first gemstone soaps, crafted for the conscious soul.
             </p>
             <div className="flex gap-4 sm:gap-5">
@@ -60,7 +60,7 @@ const Footer = () => {
             <ul className="space-y-3 sm:space-y-4">
               {footerLinks.shop.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center group">
+                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center group">
                     <span className="w-0 group-hover:w-4 h-[1px] bg-lime-400 transition-all mr-0 group-hover:mr-2" />
                     {link.label}
                   </Link>
@@ -74,7 +74,7 @@ const Footer = () => {
             <ul className="space-y-3 sm:space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center group">
+                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center group">
                     <span className="w-0 group-hover:w-4 h-[1px] bg-lime-400 transition-all mr-0 group-hover:mr-2" />
                     {link.label}
                   </Link>
@@ -88,7 +88,7 @@ const Footer = () => {
             <ul className="space-y-3 sm:space-y-4">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center group">
+                  <Link to={link.path} className="text-sm font-medium text-white/80 hover:text-white transition-colors flex items-center group">
                     <span className="w-0 group-hover:w-4 h-[1px] bg-lime-400 transition-all mr-0 group-hover:mr-2" />
                     {link.label}
                   </Link>
@@ -100,7 +100,7 @@ const Footer = () => {
           {/* Newsletter Column */}
           <div className="sm:col-span-2 lg:col-span-2">
             <h4 className="font-headline font-black text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white/30 mb-6 sm:mb-8">The Circle</h4>
-            <p className="text-xs sm:text-sm text-white/40 leading-relaxed mb-4 sm:mb-6">Join our inner circle for exclusive rituals and arrivals.</p>
+            <p className="text-xs sm:text-sm text-white/60 leading-relaxed mb-4 sm:mb-6">Join our inner circle for exclusive rituals and arrivals.</p>
             <div className="relative">
               <input 
                 type="email" 
@@ -116,14 +116,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 sm:pt-12 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8">
-          <p className="text-[10px] font-headline font-bold text-white/20 uppercase tracking-[0.25em] sm:tracking-[0.3em]">
+          <p className="text-[10px] font-headline font-bold text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.3em]">
             © {currentYear} Herbsera luxury. Crafted with soul.
           </p>
           <div className="flex gap-6 sm:gap-10">
-            <Link to="/privacy" className="text-[10px] font-headline font-bold text-white/20 uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:text-white transition-colors">
+            <Link to="/privacy" className="text-[10px] font-headline font-bold text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:text-white transition-colors">
               Privacy
             </Link>
-            <Link to="/terms" className="text-[10px] font-headline font-bold text-white/20 uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:text-white transition-colors">
+            <Link to="/terms" className="text-[10px] font-headline font-bold text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:text-white transition-colors">
               Terms
             </Link>
           </div>

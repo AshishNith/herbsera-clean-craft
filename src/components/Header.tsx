@@ -58,11 +58,12 @@ const Header = () => {
     >
       <div className="relative flex justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* Brand Identity */}
-        <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 z-10">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
-            <span className="material-symbols-outlined text-amber-500 text-lg sm:text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
-          </div>
-          <div className="text-white text-base sm:text-lg md:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
+        <Link to="/" className="flex items-center group shrink-0 z-10">
+          <img 
+            src="/assets/LogoNavbar.png" 
+            alt="HerbsEra Logo" 
+            className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
         </Link>
         
         {/* Desktop Navigation - Perfectly Centered using Absolute Positioning */}
@@ -108,7 +109,7 @@ const Header = () => {
                     )}
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 mt-4 bg-emerald-950/98 border border-white/10 text-white backdrop-blur-2xl rounded-3xl p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
+                <DropdownMenuContent align="end" className="w-64 mt-4 bg-[#022c22] border border-white/10 text-white backdrop-blur-2xl rounded-3xl p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
                   <div className="px-4 py-5 mb-2 border-b border-white/5">
                     <p className="text-[10px] text-stone-400 uppercase tracking-widest font-bold mb-1">Authenticated</p>
                     <p className="text-sm font-headline font-bold truncate">{user.email || "HerbsEra Member"}</p>

@@ -36,6 +36,36 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
     }
   };
 
+  // Determine premium dynamic glow and accent colors based on the gemstone type
+  const getGlowStyles = () => {
+    const slugLower = slug.toLowerCase();
+    if (slugLower.includes('amethyst') || slugLower.includes('lavender')) {
+      return {
+        glowClass: "group-hover:shadow-[0_0_50px_rgba(168,85,247,0.3)] border-white/20 group-hover:border-purple-400/60",
+        accentText: "group-hover:text-purple-400"
+      };
+    }
+    if (slugLower.includes('peridot') || slugLower.includes('neem') || slugLower.includes('mint')) {
+      return {
+        glowClass: "group-hover:shadow-[0_0_50px_rgba(132,204,22,0.3)] border-white/20 group-hover:border-lime-400/60",
+        accentText: "group-hover:text-lime-400"
+      };
+    }
+    if (slugLower.includes('charcoal') || slugLower.includes('black') || slugLower.includes('diamond') || slugLower.includes('citrine')) {
+      return {
+        glowClass: "group-hover:shadow-[0_0_50px_rgba(251,191,36,0.25)] border-white/20 group-hover:border-amber-400/60",
+        accentText: "group-hover:text-amber-400"
+      };
+    }
+    // Default fallback glow
+    return {
+      glowClass: "group-hover:shadow-[0_0_50px_rgba(16,185,129,0.25)] border-white/20 group-hover:border-emerald-400/60",
+      accentText: "group-hover:text-emerald-400"
+    };
+  };
+
+  const { glowClass, accentText } = getGlowStyles();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -46,7 +76,7 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
     >
       <Link to={`/products/${slug}`} className="flex-1 flex flex-col">
         {/* Cinematic Image Container */}
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[3rem] bg-emerald-950/5 mb-4 sm:mb-6 md:mb-8 shadow-2xl border border-white/40 ring-1 ring-emerald-950/5 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)] transition-all duration-700">
+        <div className={`relative aspect-[4/5] overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[3rem] bg-emerald-950/5 mb-4 sm:mb-6 md:mb-8 shadow-2xl border transition-all duration-700 ring-1 ring-emerald-950/5 ${glowClass}`}>
           <img
             src={image}
             alt={name}
@@ -57,12 +87,12 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
           <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Luxury Price Badge */}
-          <div className="absolute top-3 sm:top-4 md:top-6 right-3 sm:right-4 md:right-6 bg-white/90 backdrop-blur-xl px-3 sm:px-4 py-1.5 sm:py-2 md:px-5 md:py-2.5 rounded-full border border-white shadow-2xl scale-90 group-hover:scale-105 transition-transform duration-500">
+          <div className="absolute top-3 sm:top-4 md:top-6 right-3 sm:right-4 md:right-6 bg-white/90 backdrop-blur-xl px-3 sm:px-4 py-1.5 sm:py-2 md:px-5 md:py-2.5 rounded-full border border-white shadow-2xl scale-90 group-hover:scale-105 transition-transform duration-500 z-10">
             <span className="font-headline font-black text-[9px] sm:text-[10px] md:text-xs text-emerald-950 tracking-widest">₹{price}</span>
           </div>
 
           {/* Quick Add Overlay */}
-          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex gap-2 md:gap-3 w-full px-3 sm:px-4 md:px-8">
+          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex gap-2 md:gap-3 w-full px-3 sm:px-4 md:px-8 z-10">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -82,14 +112,14 @@ const ProductCard = ({ id, slug, name, benefit, price, image, stock, delay = 0 }
 
         {/* Product Details */}
         <div className="px-2 sm:px-4 text-center group-hover:translate-y-[-8px] transition-transform duration-500">
-          <h3 className="font-headline font-black text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.25em] text-emerald-950 mb-2 sm:mb-3 line-clamp-1 group-hover:text-emerald-700 transition-colors">
+          <h3 className={`font-headline font-black text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.25em] text-white mb-2 sm:mb-3 line-clamp-1 transition-colors ${accentText}`}>
             {name}
           </h3>
-          <p className="text-[10px] sm:text-[11px] font-bold text-emerald-900/40 uppercase tracking-widest mb-4 sm:mb-6 px-2 sm:px-4 leading-relaxed line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">
+          <p className="text-[10px] sm:text-[11px] font-bold text-stone-400 uppercase tracking-widest mb-4 sm:mb-6 px-2 sm:px-4 leading-relaxed line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">
             {benefit}
           </p>
           
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 text-emerald-900/60 font-headline font-black text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] border-b border-transparent group-hover:border-lime-400 group-hover:text-emerald-950 transition-all duration-300">
+          <div className={`inline-flex items-center gap-1.5 sm:gap-2 text-white/70 font-headline font-black text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] border-b border-transparent transition-all duration-300 group-hover:border-current ${accentText}`}>
             View Experience <ChevronRight size={10} className="sm:w-[12px] group-hover:translate-x-1 transition-transform" />
           </div>
         </div>

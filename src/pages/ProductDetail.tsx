@@ -246,7 +246,22 @@ const ProductDetail = () => {
               )}
             </div>
 
-            <p className="text-sm sm:text-base text-charcoal-light leading-relaxed">{product.description}</p>
+            <div className="space-y-3">
+              <p className="text-sm sm:text-base text-charcoal-light leading-relaxed">{product.description}</p>
+              {product.benefits && product.benefits.length > 0 && (
+                <div className="pt-2">
+                  <h3 className="font-serif text-base text-charcoal mb-2">Key Benefits:</h3>
+                  <ul className="space-y-2">
+                    {product.benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start">
+                        <Leaf className="w-4 h-4 text-forest mt-0.5 mr-2 flex-shrink-0" />
+                        <span className="text-sm text-charcoal-light">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
 
             <Separator />
 
@@ -313,32 +328,11 @@ const ProductDetail = () => {
         </div>
 
         {/* Product Details Tabs */}
-        <Tabs defaultValue="description" className="mb-12 sm:mb-16">
+        <Tabs defaultValue="ingredients" className="mb-8">
           <TabsList className="w-full justify-start border-b overflow-x-auto flex-nowrap">
-            <TabsTrigger value="description" className="text-xs sm:text-sm whitespace-nowrap">Description</TabsTrigger>
             <TabsTrigger value="ingredients" className="text-xs sm:text-sm whitespace-nowrap">Ingredients</TabsTrigger>
             <TabsTrigger value="usage" className="text-xs sm:text-sm whitespace-nowrap">How to Use</TabsTrigger>
-            <TabsTrigger value="reviews" className="text-xs sm:text-sm whitespace-nowrap">Reviews ({totalReviews})</TabsTrigger>
           </TabsList>
-
-          <TabsContent value="description" className="py-6 sm:py-8">
-            <div className="prose max-w-none">
-              <p className="text-sm sm:text-base text-charcoal-light leading-relaxed">{product.description}</p>
-              {product.benefits && product.benefits.length > 0 && (
-                <div className="mt-4 sm:mt-6">
-                  <h3 className="font-serif text-lg sm:text-xl mb-3 sm:mb-4">Key Benefits:</h3>
-                  <ul className="space-y-2">
-                    {product.benefits.map((benefit, index) => (
-                      <li key={index} className="flex items-start">
-                        <Leaf className="w-4 h-4 sm:w-5 sm:h-5 text-forest mt-0.5 mr-2 flex-shrink-0" />
-                        <span className="text-sm sm:text-base text-charcoal-light">{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </TabsContent>
 
           <TabsContent value="ingredients" className="py-6 sm:py-8">
             <div className="space-y-3 sm:space-y-4">
@@ -368,10 +362,12 @@ const ProductDetail = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="reviews" className="py-6 sm:py-8">
-            <ReviewSection productId={product._id} />
-          </TabsContent>
         </Tabs>
+
+        {/* Standalone Customer Reviews Section */}
+        <div className="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-cream-dark">
+          <ReviewSection productId={product._id} />
+        </div>
       </div>
 
       <Footer />
