@@ -158,7 +158,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950 overflow-x-hidden w-full">
+    <div className="min-h-screen bg-[#f8f9fa] selection:bg-lime-400 selection:text-emerald-950">
       <SEO 
         title="HerbsEra | Luxury Gemstone Soaps & Ayurvedic Skincare India"
         description="Experience India's first gemstone soaps by HerbsEra. Our Ayurvedic bars blend crystalline energy with botanical purity for deep detoxification and glowing skin."

@@ -1,7 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -31,12 +30,9 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import AdminReviews from "./pages/admin/AdminReviews";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 
-const queryClient = new QueryClient();
-
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+    <AuthProvider>
         <CartProvider>
           <TooltipProvider>
             <Toaster />
@@ -77,7 +73,6 @@ const App = () => (
           </TooltipProvider>
         </CartProvider>
       </AuthProvider>
-    </QueryClientProvider>
   </HelmetProvider>
 );
 
