@@ -32,18 +32,20 @@ const BeforeAfterSlider = () => {
     >
       {/* Before Image - Left Half (Mirrored Full) */}
       <img 
-        src="/assets/before2.jpeg" 
-        alt="Skin complexion before HerbsEra gemstone soap" 
+        src="/assets/after1.jpeg" 
+        alt="Skin complexion after HerbsEra gemstone soap" 
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
 
       {/* After Image - Right Half (Mirrored Full) with Clip Path */}
       <img 
-        src="/assets/after1.jpeg" 
-        alt="Skin complexion after HerbsEra gemstone soap" 
+        src="/assets/before2.jpeg" 
+        alt="Skin complexion before HerbsEra gemstone soap" 
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+
       />
+      
 
       {/* Glassmorphic Divider Line */}
       <div 
