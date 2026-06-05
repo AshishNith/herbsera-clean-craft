@@ -187,8 +187,8 @@ const Index = () => {
         </div>
 
         <div className="container-content relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-24 gap-6 sm:gap-8">
-            <div className="text-left">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 sm:mb-16 md:mb-24 gap-6 sm:gap-8">
+            <div className="text-center md:text-left w-full md:w-auto">
               <motion.span 
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -259,7 +259,7 @@ const Index = () => {
           <div className="container-content relative z-10 w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
             
             {/* Left Column: Fixed Title Section & Step Indicators */}
-            <div className="w-full md:w-[45%] text-left flex-shrink-0 flex flex-col justify-between h-auto md:h-[80vh] py-4">
+            <div className="w-full md:w-[45%] text-center md:text-left flex-shrink-0 flex flex-col justify-between h-auto md:h-[80vh] py-4">
               
               {/* Title Header */}
               <div className="space-y-3 md:space-y-4">
@@ -285,7 +285,7 @@ const Index = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="text-xs sm:text-sm text-stone-500 font-body leading-relaxed max-w-[340px]"
+                  className="text-xs sm:text-sm text-stone-500 font-body leading-relaxed max-w-[340px] mx-auto md:mx-0"
                 >
                   We believe in transparency, purity, and sustainable luxury. Every formulation is created with intention to honor your skin and nature.
                 </motion.p>
@@ -458,7 +458,7 @@ const Index = () => {
             </div>
 
             {/* Right Column: Editorial storytelling */}
-            <div className="md:col-span-6 lg:col-span-6 text-left space-y-6 sm:space-y-8">
+            <div className="md:col-span-6 lg:col-span-6 text-center md:text-left space-y-6 sm:space-y-8">
               <div className="space-y-3 sm:space-y-4">
                 <motion.span 
                   initial={{ opacity: 0, y: 15 }}
@@ -481,7 +481,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-sm sm:text-base text-charcoal-light font-body leading-relaxed max-w-xl"
+                className="text-sm sm:text-base text-charcoal-light font-body leading-relaxed max-w-xl mx-auto md:mx-0"
               >
                 Experience skin that doesn't just look healthy—it feels revitalized from a cellular level. HerbsEra gemstone soaps combine high-vibration minerals with Ayurvedic botanicals to deliver visible, structural improvements in skin tone, texture, and radiance within weeks.
               </motion.p>
@@ -498,7 +498,7 @@ const Index = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + index * 0.1 }}
-                    className="flex gap-4 sm:gap-6 border-l-2 border-emerald-900/20 pl-4 sm:pl-6 focus-within:border-lime-400 group/item transition-colors"
+                    className="flex text-left gap-4 sm:gap-6 border-l-2 border-emerald-900/20 pl-4 sm:pl-6 focus-within:border-lime-400 group/item transition-colors"
                   >
                     <div className="text-sm font-headline font-black text-lime-600 uppercase tracking-widest min-w-[60px]">
                       {item.day}
@@ -593,15 +593,15 @@ const Index = () => {
         </div>
 
         <div className="container-content relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 gap-6">
-            <div className="text-left">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 sm:mb-16 gap-6">
+            <div className="text-center md:text-left w-full md:w-auto">
               <span className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-emerald-900/70 mb-3 block">
                 Social Ritual
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-headline font-black text-emerald-950 uppercase tracking-tight leading-[1.05]">
                 Follow The <br/><span className="text-emerald-900/50">Ritual</span>
               </h2>
-              <p className="text-xs sm:text-sm text-stone-500 font-body mt-4 max-w-md">
+              <p className="text-xs sm:text-sm text-stone-500 font-body mt-4 max-w-md mx-auto md:mx-0">
                 See our crystal-infused formulations in action. Tap to watch the ritual and shop the featured products.
               </p>
             </div>
