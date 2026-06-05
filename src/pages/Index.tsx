@@ -170,6 +170,81 @@ const Index = () => {
 
       <h1 className="sr-only">HerbsEra - Premium Gemstone Soaps and Natural Ayurvedic Skincare</h1>
 
+      {/* Featured Collection - Crystalline Collection */}
+      <section className="py-16 sm:py-20 md:py-40 bg-emerald-950 overflow-hidden relative">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
+          <div className="absolute top-1/4 right-[-10%] w-[500px] h-[500px] bg-lime-400 rounded-full blur-[150px] mix-blend-screen" />
+          <div className="absolute bottom-1/4 left-[-10%] w-[500px] h-[500px] bg-emerald-500 rounded-full blur-[180px] mix-blend-screen" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[200px]" />
+        </div>
+
+        {/* Giant Editorial Outline Typography in Background */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+          <span className="text-[14vw] font-headline font-black text-white/[0.015] uppercase tracking-[0.25em] leading-none select-none">
+            Crystalline
+          </span>
+        </div>
+
+        <div className="container-content relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-24 gap-6 sm:gap-8">
+            <div className="text-left">
+              <motion.span 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white/70 mb-3 sm:mb-4 block"
+              >
+                Crystalline Collection
+              </motion.span>
+              <motion.h2 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-2xl sm:text-3xl md:text-6xl font-headline font-black text-white uppercase tracking-tighter leading-none"
+              >
+                Gems For <br/><span className="text-lime-400">Your Skin</span>
+              </motion.h2>
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link to="/products" className="group flex items-center gap-3 sm:gap-4 bg-white/5 border border-white/20 px-6 sm:px-8 py-3 sm:py-4 md:px-10 md:py-5 rounded-full text-white font-headline font-black text-[8px] sm:text-[9px] md:text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all shadow-2xl">
+                Explore Full Universe <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-10">
+            {isLoading ? (
+              [...Array(4)].map((_, index) => (
+                <div key={index} className="animate-pulse flex flex-col gap-4 sm:gap-6">
+                  <div className="aspect-[4/5] bg-white/5 rounded-[2rem] sm:rounded-[3rem]"></div>
+                  <div className="h-3 sm:h-4 bg-white/5 rounded full w-3/4 mx-auto"></div>
+                  <div className="h-3 sm:h-4 bg-white/5 rounded full w-1/2 mx-auto"></div>
+                </div>
+              ))
+            ) : (
+              featuredProducts.slice(0, 4).map((product, index) => (
+                <ProductCard
+                  key={product._id}
+                  id={product._id}
+                  slug={product.slug}
+                  name={product.name}
+                  benefit={product.benefit}
+                  price={product.price}
+                  image={product.images[0]?.url}
+                  stock={product.stock}
+                  delay={index * 0.1}
+                />
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Trust Badges - The Botanical Promise */}
       <section 
         ref={trustSectionRef} 
@@ -360,80 +435,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Collection - Crystalline Collection */}
-      <section className="py-16 sm:py-20 md:py-40 bg-emerald-950 overflow-hidden relative">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
-          <div className="absolute top-1/4 right-[-10%] w-[500px] h-[500px] bg-lime-400 rounded-full blur-[150px] mix-blend-screen" />
-          <div className="absolute bottom-1/4 left-[-10%] w-[500px] h-[500px] bg-emerald-500 rounded-full blur-[180px] mix-blend-screen" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[200px]" />
-        </div>
 
-        {/* Giant Editorial Outline Typography in Background */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
-          <span className="text-[14vw] font-headline font-black text-white/[0.015] uppercase tracking-[0.25em] leading-none select-none">
-            Crystalline
-          </span>
-        </div>
-
-        <div className="container-content relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-24 gap-6 sm:gap-8">
-            <div className="text-left">
-              <motion.span 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className="text-[10px] md:text-[11px] font-headline font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white/70 mb-3 sm:mb-4 block"
-              >
-                Crystalline Collection
-              </motion.span>
-              <motion.h2 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-2xl sm:text-3xl md:text-6xl font-headline font-black text-white uppercase tracking-tighter leading-none"
-              >
-                Gems For <br/><span className="text-lime-400">Your Skin</span>
-              </motion.h2>
-            </div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Link to="/products" className="group flex items-center gap-3 sm:gap-4 bg-white/5 border border-white/20 px-6 sm:px-8 py-3 sm:py-4 md:px-10 md:py-5 rounded-full text-white font-headline font-black text-[8px] sm:text-[9px] md:text-[10px] uppercase tracking-widest hover:bg-lime-400 hover:text-emerald-950 transition-all shadow-2xl">
-                Explore Full Universe <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
-              </Link>
-            </motion.div>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-10">
-            {isLoading ? (
-              [...Array(4)].map((_, index) => (
-                <div key={index} className="animate-pulse flex flex-col gap-4 sm:gap-6">
-                  <div className="aspect-[4/5] bg-white/5 rounded-[2rem] sm:rounded-[3rem]"></div>
-                  <div className="h-3 sm:h-4 bg-white/5 rounded full w-3/4 mx-auto"></div>
-                  <div className="h-3 sm:h-4 bg-white/5 rounded full w-1/2 mx-auto"></div>
-                </div>
-              ))
-            ) : (
-              featuredProducts.slice(0, 4).map((product, index) => (
-                <ProductCard
-                  key={product._id}
-                  id={product._id}
-                  slug={product.slug}
-                  name={product.name}
-                  benefit={product.benefit}
-                  price={product.price}
-                  image={product.images[0]?.url}
-                  stock={product.stock}
-                  delay={index * 0.1}
-                />
-              ))
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Interactive Before & After Transformation Section */}
       <section className="py-20 sm:py-24 md:py-40 bg-emerald-950/20 relative overflow-hidden border-y border-emerald-900/10">
