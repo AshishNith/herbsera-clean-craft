@@ -34,9 +34,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-8 mb-12 sm:mb-20">
           {/* Brand Column */}
           <div className="lg:col-span-4 text-center sm:text-left flex flex-col items-center sm:items-start">
-            <Link to="/" className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8 group justify-center sm:justify-start">
-              <span className="material-symbols-outlined text-amber-500 text-2xl sm:text-3xl group-hover:rotate-12 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
-              <div className="text-xl sm:text-2xl font-headline font-black tracking-tight uppercase">Herbs<span className="text-lime-400">Era</span></div>
+            <Link to="/" className="flex items-center mb-6 sm:mb-8 group justify-center sm:justify-start">
+              <img 
+                src="/assets/LogoNavbar.png" 
+                alt="HerbsEra Logo" 
+                className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
             <p className="text-white/70 font-body leading-relaxed mb-8 sm:mb-10 max-w-sm text-sm sm:text-base mx-auto sm:mx-0">
               Crystallizing nature's healing essence into luxurious rituals. India's first gemstone soaps, crafted for the conscious soul.
