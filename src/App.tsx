@@ -29,6 +29,7 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminReviews from "./pages/admin/AdminReviews";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminFilters from "./pages/admin/AdminFilters";
 
 const App = () => (
   <HelmetProvider>
@@ -62,6 +63,7 @@ const App = () => (
                   <Route path="analytics" element={<AdminAnalytics />} />
                   <Route path="products" element={<AdminProducts />} />
                   <Route path="products/new" element={<AdminAddProduct />} />
+                  <Route path="filters" element={<AdminFilters />} />
                   <Route path="orders" element={<AdminOrders />} />
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="reviews" element={<AdminReviews />} />

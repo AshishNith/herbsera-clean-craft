@@ -6,17 +6,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { getProducts } from "@/services/productService";
+import { getActiveFilters } from "@/services/filterService";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "@/components/SEO";
 
 import soapNeem from "@/assets/soap-neem.jpg";
-
-const categories = [
-  { id: "all", name: "All Products", search: "" },
-  { id: "green", name: "Botanical Green", search: "neem" },
-  { id: "black", name: "Midnight Black", search: "charcoal" },
-  { id: "white", name: "Celestial White", search: "lavender" },
-];
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,6 +31,18 @@ const Products = () => {
       search: currentSearch
     }));
   }, [currentSearch]);
+
+  // Fetch active filters from database
+  const { data: filtersData } = useQuery({
+    queryKey: ["activeFilters"],
+    queryFn: getActiveFilters,
+  });
+
+  const dbFilters = filtersData?.data || [];
+  const categoriesList = [
+    { _id: "all", name: "All Products", searchQuery: "" },
+    ...dbFilters
+  ];
 
   // Fetch products from backend
   const { data, isLoading, error } = useQuery({
@@ -98,12 +104,12 @@ const Products = () => {
       <section className="sticky top-16 sm:top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border py-3 sm:py-4">
         <div className="container-content overflow-x-auto no-scrollbar">
           <div className="flex items-center justify-start md:justify-center gap-2 sm:gap-4 min-w-max px-4">
-            {categories.map((cat) => (
+            {categoriesList.map((cat) => (
               <button
-                key={cat.id}
-                onClick={() => handleCategoryChange(cat.search)}
+                key={cat._id}
+                onClick={() => handleCategoryChange(cat.searchQuery)}
                 className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
-                  currentSearch === cat.search
+                  currentSearch === cat.searchQuery
                     ? "bg-forest text-cream shadow-md"
                     : "bg-cream-dark text-charcoal hover:bg-sage/20"
                 }`}
