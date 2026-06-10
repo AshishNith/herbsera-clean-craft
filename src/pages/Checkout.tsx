@@ -192,9 +192,17 @@ const Checkout = () => {
                     </Label>
                   </div>
 
-                  <div className="flex items-center space-x-3 p-4 border rounded-lg mb-3">
-                    <RadioGroupItem value="razorpay" id="razorpay" />
-                    <Label htmlFor="razorpay" className="flex items-center cursor-pointer flex-1">
+                  <div 
+                    className="flex items-center space-x-3 p-4 border rounded-lg mb-3 opacity-50 cursor-not-allowed"
+                    onClick={() => {
+                      toast({
+                        title: "Online Payment Unavailable",
+                        description: "Online payment options (UPI, Cards, Net Banking) are temporarily disabled. Please use Cash on Delivery (COD) to place your order.",
+                      });
+                    }}
+                  >
+                    <RadioGroupItem value="razorpay" id="razorpay" disabled checked={false} />
+                    <Label htmlFor="razorpay" className="flex items-center cursor-not-allowed flex-1 pointer-events-none">
                       <CreditCard className="w-5 h-5 mr-2 text-forest" />
                       <div>
                         <div className="font-medium">Online Payment</div>
