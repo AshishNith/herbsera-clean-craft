@@ -25,7 +25,6 @@ Here is the context about HerbsEra website:
 6. **Activated Charcoal Detox Soap (₹179):** Deep pore cleansing. Contains Activated Charcoal (50%), Tea Tree Oil (20%), Natural Oil Base (30%). Deeply cleanses and controls oil.
 7. **Rose Milk Moisturizing Soap (₹159):** Deep moisturization. Contains Rose Extract (35%), Milk Protein (30%), Natural Oil Base (35%). Hydrates and softens dry/sensitive skin.
 8. **Coffee Exfoliating Soap (₹169):** Natural skin scrub. Contains Coffee Granules (40%), Cocoa Extract (20%), Natural Oil Base (40%). Exfoliates dead skin cells, improves circulation, and smooths texture.
-9. **Handcrafted Bamboo Soap Tray (₹99):** Eco-friendly, self-draining organic bamboo tray designed to keep gemstone soaps dry, preventing wasting and making them last twice as long.
 
 ## 3. Shipping & Pricing Policies
 * Shipping is FREE across India for all orders. On the cart and checkout screens, it is shown as a ₹99.00 shipping charge followed by a -₹99.00 "Shipping Discount" to highlight the savings.

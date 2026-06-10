@@ -221,7 +221,7 @@ The user is currently viewing the page path: '${location.pathname}'`;
                   },
                   {
                     name: "add_to_cart_by_name",
-                    description: "Add a product to the user's shopping cart by searching its name. E.g. 'Black Diamond Gemstone Soap', 'Rose Milk Soap', 'Handcrafted Bamboo Soap Tray'.",
+                    description: "Add a product to the user's shopping cart by searching its name. E.g. 'Black Diamond Gemstone Soap', 'Rose Milk Soap', 'Lavender Glacier Soap'.",
                     parameters: {
                       type: "OBJECT",
                       properties: {
