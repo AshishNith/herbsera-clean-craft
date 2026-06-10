@@ -22,6 +22,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import RefundPolicy from "./pages/RefundPolicy";
 import CookieConsent from "./components/CookieConsent";
+import VoiceConcierge from "./components/VoiceConcierge";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -42,6 +43,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <CookieConsent />
+              <VoiceConcierge />
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/products" element={<Products />} />
