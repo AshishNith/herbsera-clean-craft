@@ -126,11 +126,11 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between text-charcoal-light text-sm sm:text-base">
                     <span>Shipping</span>
-                    <span className="text-forest">Free</span>
+                    <span>₹99.00</span>
                   </div>
-                  <div className="flex justify-between text-charcoal-light text-sm sm:text-base">
-                    <span>Tax (18% GST)</span>
-                    <span>₹{((cart.totalPrice || 0) * 0.18).toFixed(2)}</span>
+                  <div className="flex justify-between text-forest text-sm sm:text-base font-medium">
+                    <span>Shipping Discount</span>
+                    <span>-₹99.00</span>
                   </div>
                 </div>
 
@@ -138,14 +138,11 @@ const Cart = () => {
 
                 <div className="flex justify-between text-base sm:text-lg font-medium mb-4 sm:mb-6">
                   <span>Total</span>
-                  <span className="text-forest">₹{((cart.totalPrice || 0) * 1.18).toFixed(2)}</span>
+                  <span className="text-forest">₹{(cart.totalPrice || 0).toFixed(2)}</span>
                 </div>
 
                 <Button className="w-full mb-2 sm:mb-3" onClick={handleCheckout}>
                   Proceed to Checkout
-                </Button>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/products')}>
-                  Continue Shopping
                 </Button>
                 <Button variant="outline" className="w-full" onClick={() => navigate('/products')}>
                   Continue Shopping

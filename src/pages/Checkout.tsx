@@ -43,8 +43,7 @@ const Checkout = () => {
   }
 
   const subtotal = cart.totalPrice;
-  const tax = subtotal * 0.18;
-  const total = subtotal + tax;
+  const total = subtotal;
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -232,11 +231,11 @@ const Checkout = () => {
                   </div>
                   <div className="flex justify-between text-charcoal-light">
                     <span>Shipping</span>
-                    <span className="text-forest">Free</span>
+                    <span>₹99.00</span>
                   </div>
-                  <div className="flex justify-between text-charcoal-light">
-                    <span>Tax (18% GST)</span>
-                    <span>₹{tax.toFixed(2)}</span>
+                  <div className="flex justify-between text-forest font-medium">
+                    <span>Shipping Discount</span>
+                    <span>-₹99.00</span>
                   </div>
                 </div>
 

@@ -74,16 +74,18 @@ const ProductDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-cream">
+      <div className="min-h-screen pt-20 sm:pt-28 bg-cream">
         <Header />
-        <div className="container mx-auto px-4 py-20">
+        <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12">
           <div className="animate-pulse">
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="bg-cream-dark h-96 rounded-lg"></div>
-              <div className="space-y-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-16">
+              <div className="bg-cream-dark aspect-square sm:aspect-[4/5] rounded-xl sm:rounded-2xl"></div>
+              <div className="space-y-4 sm:space-y-6">
+                <div className="h-4 bg-cream-dark rounded w-1/4"></div>
                 <div className="h-8 bg-cream-dark rounded w-3/4"></div>
-                <div className="h-4 bg-cream-dark rounded w-1/2"></div>
-                <div className="h-20 bg-cream-dark rounded"></div>
+                <div className="h-6 bg-cream-dark rounded w-1/3"></div>
+                <div className="h-24 bg-cream-dark rounded"></div>
+                <div className="h-12 bg-cream-dark rounded w-1/2"></div>
               </div>
             </div>
           </div>
@@ -95,9 +97,9 @@ const ProductDetail = () => {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-cream">
+      <div className="min-h-screen pt-20 sm:pt-28 bg-cream">
         <Header />
-        <div className="container mx-auto px-4 py-20 text-center">
+        <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12 text-center">
           <h1 className="font-serif text-3xl mb-4">Product Not Found</h1>
           <Button onClick={() => navigate('/products')}>Back to Products</Button>
         </div>
