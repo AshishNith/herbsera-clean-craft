@@ -75,6 +75,11 @@ export default function AdminProducts() {
       comparePrice: product.comparePrice || product.originalPrice,
       weight: product.weight || { value: 100, unit: 'g' },
       images: Array.isArray(product.images) ? product.images : [],
+      shelfLife: product.shelfLife || '24 months',
+      countryOfOrigin: product.countryOfOrigin || 'India',
+      mfgLicenseNo: product.mfgLicenseNo || 'M-MH/104829',
+      manufacturerDetails: product.manufacturerDetails || 'HerbsEra Wellness Pvt Ltd, Plot 14, Phase II, Hinjawadi Biotech Park, Pune, Maharashtra, 411057.',
+      safetyWarning: product.safetyWarning || 'For external use only. Rub between wet palms to generate rich lather. Avoid direct contact with eyes. Patch test on inner elbow recommended before first use.',
     });
     setIsDialogOpen(true);
   };
@@ -94,6 +99,11 @@ export default function AdminProducts() {
         isActive: editingProduct.isActive,
         weight: editingProduct.weight,
         images: editingProduct.images,
+        shelfLife: editingProduct.shelfLife,
+        countryOfOrigin: editingProduct.countryOfOrigin,
+        mfgLicenseNo: editingProduct.mfgLicenseNo,
+        manufacturerDetails: editingProduct.manufacturerDetails,
+        safetyWarning: editingProduct.safetyWarning,
       };
 
       await adminService.updateProduct(editingProduct._id, updateData);
@@ -504,6 +514,68 @@ export default function AdminProducts() {
                       })}
                     </div>
                   )}
+                </div>
+              </div>
+
+              {/* Compliance Declarations */}
+              <div className="space-y-4 pt-4 border-t">
+                <h4 className="font-semibold text-sm uppercase tracking-wider text-gray-500">Compliance Declarations</h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <Label htmlFor="edit-shelfLife">Shelf Life / Expiry</Label>
+                    <Input
+                      id="edit-shelfLife"
+                      value={editingProduct.shelfLife || ''}
+                      onChange={(e) =>
+                        setEditingProduct({ ...editingProduct, shelfLife: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit-countryOfOrigin">Country of Origin</Label>
+                    <Input
+                      id="edit-countryOfOrigin"
+                      value={editingProduct.countryOfOrigin || ''}
+                      onChange={(e) =>
+                        setEditingProduct({ ...editingProduct, countryOfOrigin: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit-mfgLicenseNo">Mfg License No</Label>
+                    <Input
+                      id="edit-mfgLicenseNo"
+                      value={editingProduct.mfgLicenseNo || ''}
+                      onChange={(e) =>
+                        setEditingProduct({ ...editingProduct, mfgLicenseNo: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-manufacturerDetails">Manufacturer & Packaging Details</Label>
+                  <Textarea
+                    id="edit-manufacturerDetails"
+                    value={editingProduct.manufacturerDetails || ''}
+                    onChange={(e) =>
+                      setEditingProduct({ ...editingProduct, manufacturerDetails: e.target.value })
+                    }
+                    rows={2}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-safetyWarning">Safety Warning / Instructions</Label>
+                  <Textarea
+                    id="edit-safetyWarning"
+                    value={editingProduct.safetyWarning || ''}
+                    onChange={(e) =>
+                      setEditingProduct({ ...editingProduct, safetyWarning: e.target.value })
+                    }
+                    rows={3}
+                  />
                 </div>
               </div>
 

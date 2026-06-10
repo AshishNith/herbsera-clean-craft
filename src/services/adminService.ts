@@ -35,6 +35,11 @@ export interface AdminProduct {
     value: number;
     unit: string;
   };
+  shelfLife?: string;
+  countryOfOrigin?: string;
+  mfgLicenseNo?: string;
+  manufacturerDetails?: string;
+  safetyWarning?: string;
   createdAt: string;
 }
 

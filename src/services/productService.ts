@@ -34,6 +34,11 @@ export interface Product {
   };
   tags?: string[];
   usage?: string;
+  shelfLife?: string;
+  countryOfOrigin?: string;
+  mfgLicenseNo?: string;
+  manufacturerDetails?: string;
+  safetyWarning?: string;
   createdAt: string;
   updatedAt: string;
 }

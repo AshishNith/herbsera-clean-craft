@@ -7,12 +7,23 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '@/services/productService';
 
 const Cart = () => {
-  const { cart, loading, updateQuantity, removeItem } = useCart();
+  const { cart, loading, updateQuantity, removeItem, addToCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Query for accessory products
+  const { data: accessoryData } = useQuery({
+    queryKey: ['accessory-upsell'],
+    queryFn: () => getProducts({ search: "Bamboo" }),
+  });
+  
+  const bambooTray = accessoryData?.data?.find(p => p.slug === 'handcrafted-bamboo-soap-tray');
+  const isTrayInCart = cart?.items?.some(item => item.product?.slug === 'handcrafted-bamboo-soap-tray');
 
   const cartItemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
   const isEmpty = !cart || cart.items.length === 0;
@@ -112,6 +123,52 @@ const Cart = () => {
                   </div>
                 </div>
               ))}
+              
+              {/* Accessory Cross-sell/Upsell */}
+              {bambooTray && !isTrayInCart && (
+                <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-sm border border-cream-dark/60 mt-4 sm:mt-6">
+                  <h3 className="font-serif text-sm sm:text-base font-medium text-charcoal mb-4 flex items-center gap-2">
+                    <span>🌿</span> Complete Your Skincare Ritual
+                  </h3>
+                  
+                  <div className="flex gap-4 items-center sm:items-start flex-col sm:flex-row">
+                    <div className="w-16 h-16 bg-cream-dark rounded-lg overflow-hidden shrink-0">
+                      <img
+                        src={bambooTray.images?.[0]?.url || '/placeholder.png'}
+                        alt={bambooTray.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    
+                    <div className="flex-1 text-center sm:text-left space-y-1">
+                      <div className="flex justify-between items-baseline flex-col sm:flex-row gap-1">
+                        <h4 className="font-medium text-charcoal text-sm sm:text-base">{bambooTray.name}</h4>
+                        <div className="text-forest font-bold text-sm sm:text-base">
+                          ₹{bambooTray.price.toFixed(2)}
+                          {bambooTray.comparePrice && (
+                            <span className="text-xs text-charcoal-light line-through font-normal ml-1.5">
+                              ₹{bambooTray.comparePrice.toFixed(2)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-xs text-charcoal-light leading-relaxed">
+                        {bambooTray.description || "Extend the life of your natural gemstone soaps with this self-draining organic bamboo soap tray."}
+                      </p>
+                      <div className="pt-2 flex justify-center sm:justify-start">
+                        <Button 
+                          variant="outline"
+                          size="sm"
+                          onClick={() => addToCart(bambooTray._id, 1, bambooTray)}
+                          className="text-xs border-forest text-forest hover:bg-forest hover:text-white"
+                        >
+                          Add to Ritual
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Order Summary */}

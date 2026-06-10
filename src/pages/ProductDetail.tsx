@@ -334,6 +334,7 @@ const ProductDetail = () => {
           <TabsList className="w-full justify-start border-b overflow-x-auto flex-nowrap">
             <TabsTrigger value="ingredients" className="text-xs sm:text-sm whitespace-nowrap">Ingredients</TabsTrigger>
             <TabsTrigger value="usage" className="text-xs sm:text-sm whitespace-nowrap">How to Use</TabsTrigger>
+            <TabsTrigger value="compliance" className="text-xs sm:text-sm whitespace-nowrap">Product Details & Compliance</TabsTrigger>
           </TabsList>
 
           <TabsContent value="ingredients" className="py-6 sm:py-8">
@@ -361,6 +362,41 @@ const ProductDetail = () => {
               <p className="text-sm sm:text-base text-charcoal-light leading-relaxed">
                 {product.usage || 'Apply to wet skin, lather, and rinse thoroughly. For best results, use daily.'}
               </p>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="compliance" className="py-6 sm:py-8">
+            <div className="bg-white p-6 rounded-2xl border border-cream-dark/60 shadow-sm max-w-3xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div className="space-y-1">
+                  <span className="text-xs text-charcoal-light uppercase font-bold tracking-wider block">Net Weight / Volume</span>
+                  <span className="font-medium text-charcoal">{product.weight ? `${product.weight.value}${product.weight.unit}` : '100g'}</span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-charcoal-light uppercase font-bold tracking-wider block">Shelf Life / Best Before</span>
+                  <span className="font-medium text-charcoal">{product.shelfLife || '24 months from the date of manufacture'}</span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-charcoal-light uppercase font-bold tracking-wider block">Country of Origin</span>
+                  <span className="font-medium text-charcoal">{product.countryOfOrigin || 'India'}</span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-charcoal-light uppercase font-bold tracking-wider block">Mfg License No</span>
+                  <span className="font-medium text-charcoal">{product.mfgLicenseNo || 'M-MH/104829'}</span>
+                </div>
+                <div className="md:col-span-2 space-y-1">
+                  <span className="text-xs text-charcoal-light uppercase font-bold tracking-wider block">Manufacturer & Packaging Details</span>
+                  <span className="font-medium text-charcoal text-xs leading-relaxed block">
+                    {product.manufacturerDetails || 'Handcrafted and packed by: HerbsEra Wellness Pvt Ltd, Plot 14, Phase II, Hinjawadi Biotech Park, Pune, Maharashtra, 411057.'}
+                  </span>
+                </div>
+                <div className="md:col-span-2 space-y-1">
+                  <span className="text-xs text-charcoal-light uppercase font-bold tracking-wider block">Safety Warning</span>
+                  <span className="text-xs text-charcoal-light leading-relaxed block">
+                    {product.safetyWarning || 'For external use only. Rub between wet palms to generate rich lather. Avoid direct contact with eyes. Patch test on inner elbow recommended before first use.'}
+                  </span>
+                </div>
+              </div>
             </div>
           </TabsContent>
 

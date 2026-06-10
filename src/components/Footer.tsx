@@ -19,8 +19,7 @@ const Footer = () => {
     ],
     support: [
       { label: "Contact", path: "/contact" },
-      { label: "Shipping", path: "/contact" },
-      { label: "Returns", path: "/contact" },
+      { label: "Cancellation & Refund", path: "/refund-policy" },
       { label: "FAQ", path: "/contact" },
     ],
   };
@@ -128,6 +127,9 @@ const Footer = () => {
             </Link>
             <Link to="/terms" className="text-[10px] font-headline font-bold text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:text-white transition-colors">
               Terms
+            </Link>
+            <Link to="/refund-policy" className="text-[10px] font-headline font-bold text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.3em] hover:text-white transition-colors">
+              Refund & Cancellation
             </Link>
           </div>
         </div>

@@ -49,6 +49,17 @@ const Terms = () => {
                   <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">5. Governing Law</h2>
                   <p>These terms are governed by the laws of India. Any disputes arising from your journey with us shall be resolved through the jurisdiction of Indian courts, with an emphasis on mutual respect and clarity.</p>
                 </div>
+
+                <div>
+                  <h2 className="text-2xl font-headline font-black uppercase tracking-tight text-emerald-950 mb-4">6. Grievance Officer & Corporate Identity</h2>
+                  <p>In accordance with the Information Technology Act 2000 and the Consumer Protection (E-Commerce) Rules 2020, the name and contact details of our Grievance Officer are provided below:</p>
+                  <div className="mt-4 p-6 bg-[#f8f9fa] rounded-2xl flex flex-col gap-2 border border-emerald-950/5 text-sm">
+                    <p>🏢 <strong>Entity Name:</strong> HerbsEra Private Limited</p>
+                    <p>📍 <strong>Registered Address:</strong> Ground Floor, HerbsEra Wellness Tower, Baner Road, Pune, Maharashtra, 411045, India</p>
+                    <p>📧 <strong>Grievance Cell Email:</strong> grievance@herbsera.in</p>
+                    <p>⚠️ <strong>SLA:</strong> We acknowledge grievance complaints within 48 hours and resolve them within one month from receipt.</p>
+                  </div>
+                </div>
               </div>
             </section>
             

@@ -32,6 +32,11 @@ interface ProductForm {
     url: string;
     alt: string;
   }[];
+  shelfLife?: string;
+  countryOfOrigin?: string;
+  mfgLicenseNo?: string;
+  manufacturerDetails?: string;
+  safetyWarning?: string;
 }
 
 export default function AdminAddProduct() {
@@ -53,6 +58,11 @@ export default function AdminAddProduct() {
       unit: 'g',
     },
     images: [],
+    shelfLife: '24 months',
+    countryOfOrigin: 'India',
+    mfgLicenseNo: 'M-MH/104829',
+    manufacturerDetails: 'HerbsEra Wellness Pvt Ltd, Plot 14, Phase II, Hinjawadi Biotech Park, Pune, Maharashtra, 411057.',
+    safetyWarning: 'For external use only. Rub between wet palms to generate rich lather. Avoid direct contact with eyes. Patch test on inner elbow recommended before first use.',
   });
 
   const handleAddImage = () => {
@@ -303,6 +313,63 @@ export default function AdminAddProduct() {
                     ))}
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Compliance Declarations */}
+            <div className="space-y-4 pt-4 border-t">
+              <h3 className="text-lg font-semibold text-gray-950">Compliance Declarations</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="shelfLife">Shelf Life / Expiry *</Label>
+                  <Input
+                    id="shelfLife"
+                    value={formData.shelfLife}
+                    onChange={(e) => setFormData({ ...formData, shelfLife: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="countryOfOrigin">Country of Origin *</Label>
+                  <Input
+                    id="countryOfOrigin"
+                    value={formData.countryOfOrigin}
+                    onChange={(e) => setFormData({ ...formData, countryOfOrigin: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="mfgLicenseNo">Mfg License No *</Label>
+                  <Input
+                    id="mfgLicenseNo"
+                    value={formData.mfgLicenseNo}
+                    onChange={(e) => setFormData({ ...formData, mfgLicenseNo: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="manufacturerDetails">Manufacturer & Packaging Details *</Label>
+                <Textarea
+                  id="manufacturerDetails"
+                  value={formData.manufacturerDetails}
+                  onChange={(e) => setFormData({ ...formData, manufacturerDetails: e.target.value })}
+                  rows={2}
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="safetyWarning">Safety Warning / Instructions *</Label>
+                <Textarea
+                  id="safetyWarning"
+                  value={formData.safetyWarning}
+                  onChange={(e) => setFormData({ ...formData, safetyWarning: e.target.value })}
+                  rows={3}
+                  required
+                />
               </div>
             </div>
 
