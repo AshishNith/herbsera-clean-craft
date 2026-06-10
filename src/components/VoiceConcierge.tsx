@@ -3,21 +3,42 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Phone, PhoneOff, Mic, MicOff, Sparkles, Loader2, X, Volume2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { SYSTEM_PROMPT } from "@/constants/websiteContext";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
+import { getProducts, Product } from "@/services/productService";
 
 export default function VoiceConcierge() {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [callState, setCallState] = useState<"idle" | "connecting" | "active" | "ended">("idle");
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [productsList, setProductsList] = useState<Product[]>([]);
 
   const isMutedRef = useRef(isMuted);
+
+  // Fetch product catalog on mount for matching voice requests
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getProducts();
+        if (response.success && response.data) {
+          setProductsList(response.data);
+        }
+      } catch (err) {
+        console.error("Error fetching products for voice concierge:", err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   // Sync mute state ref to prevent stale closures in Web Audio callbacks
   useEffect(() => {
     isMutedRef.current = isMuted;
   }, [isMuted]);
 
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyArCieA7gW8N1kbrfWP6GPOsaG9KoG6e4g";
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
   const wsRef = useRef<WebSocket | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -137,7 +158,59 @@ export default function VoiceConcierge() {
             },
             systemInstruction: {
               parts: [{ text: SYSTEM_PROMPT }]
-            }
+            },
+            tools: [
+              {
+                functionDeclarations: [
+                  {
+                    name: "navigate_to",
+                    description: "Navigate the user to a specific page on the website. E.g. '/' (Home), '/products' (Products list), '/cart' (Cart page), '/checkout' (Checkout page), '/about' (About page), '/contact' (Contact/Support page).",
+                    parameters: {
+                      type: "OBJECT",
+                      properties: {
+                        path: {
+                          type: "STRING",
+                          description: "The path to navigate to, e.g. '/products'"
+                        }
+                      },
+                      required: ["path"]
+                    }
+                  },
+                  {
+                    name: "add_to_cart_by_name",
+                    description: "Add a product to the user's shopping cart by searching its name. E.g. 'Black Diamond Gemstone Soap', 'Rose Milk Soap', 'Handcrafted Bamboo Soap Tray'.",
+                    parameters: {
+                      type: "OBJECT",
+                      properties: {
+                        productName: {
+                          type: "STRING",
+                          description: "The name or part of the name of the product to add to the cart"
+                        },
+                        quantity: {
+                          type: "NUMBER",
+                          description: "The quantity to add (default is 1)"
+                        }
+                      },
+                      required: ["productName"]
+                    }
+                  },
+                  {
+                    name: "search_products",
+                    description: "Search the product catalog for a specific query or keyword.",
+                    parameters: {
+                      type: "OBJECT",
+                      properties: {
+                        query: {
+                          type: "STRING",
+                          description: "The search query, e.g. 'lavender', 'neem'"
+                        }
+                      },
+                      required: ["query"]
+                    }
+                  }
+                ]
+              }
+            ]
           }
         };
         ws.send(JSON.stringify(setupMessage));
@@ -275,6 +348,61 @@ export default function VoiceConcierge() {
           // Handle interruption flag from server if any
           if (message.serverContent?.interrupted) {
             stopAudioPlayback();
+          }
+
+          // Handle incoming tool calls from Gemini Live server
+          if (message.toolCall) {
+            const functionCalls = message.toolCall.functionCalls;
+            const functionResponses = [];
+
+            for (const call of functionCalls) {
+              const { name, args, id } = call;
+              console.log(`[VoiceConcierge] Tool call received: ${name}`, args);
+
+              let result: any = { success: false };
+              try {
+                if (name === "navigate_to") {
+                  navigate(args.path);
+                  result = { success: true, navigatedTo: args.path };
+                } else if (name === "add_to_cart_by_name") {
+                  const query = args.productName.toLowerCase().trim();
+                  // Match product name or tags
+                  const matchedProduct = productsList.find(p => 
+                    p.name.toLowerCase().includes(query) || 
+                    (p.tags && p.tags.some(t => t.toLowerCase().includes(query)))
+                  );
+
+                  if (matchedProduct) {
+                    await addToCart(matchedProduct._id, args.quantity || 1, matchedProduct);
+                    result = { success: true, addedProduct: matchedProduct.name, quantity: args.quantity || 1 };
+                  } else {
+                    result = { success: false, error: `Product containing '${args.productName}' was not found in catalog.` };
+                  }
+                } else if (name === "search_products") {
+                  navigate(`/products?search=${encodeURIComponent(args.query)}`);
+                  result = { success: true, searchQuery: args.query };
+                }
+              } catch (e: any) {
+                console.error("[VoiceConcierge] Error executing function call:", e);
+                result = { success: false, error: e.message || "Execution error" };
+              }
+
+              functionResponses.push({
+                id,
+                name,
+                response: { output: result }
+              });
+            }
+
+            // Send toolResponse back to the WebSocket server
+            if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+              wsRef.current.send(JSON.stringify({
+                toolResponse: {
+                  functionResponses
+                }
+              }));
+              console.log("[VoiceConcierge] Sent tool responses back to server:", functionResponses);
+            }
           }
 
         } catch (err) {
