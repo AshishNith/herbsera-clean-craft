@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Phone, PhoneOff, Mic, MicOff, Sparkles, Loader2, X, Volume2 } from "lucide-react";
+import { Phone, PhoneOff, Mic, MicOff, Sparkles, Loader2, X, Volume2, MessageCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { SYSTEM_PROMPT } from "@/constants/websiteContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,6 +12,7 @@ export default function VoiceConcierge() {
   const location = useLocation();
   const { addToCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(true);
   const [callState, setCallState] = useState<"idle" | "connecting" | "active" | "ended">("idle");
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -481,27 +482,77 @@ The user is currently viewing the page path: '${location.pathname}'`;
 
   return (
     <>
-      {/* Floating Calling Icon */}
-      <div className="fixed bottom-6 left-6 z-[150]">
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(16,185,129,0.3)] cursor-pointer text-white relative transition-colors ${
-            callState === "active" ? "bg-red-500 hover:bg-red-600 shadow-red-500/20" : "bg-forest hover:bg-forest-light"
-          }`}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {callState === "active" ? (
-            <PhoneOff size={22} className="animate-pulse" />
-          ) : (
-            <Phone size={22} className="animate-bounce" />
-          )}
+      {/* Fixed Widget Container */}
+      <div className="fixed bottom-6 left-6 z-[150] flex flex-col items-start gap-3">
 
-          {callState === "active" && (
-            <span className="absolute inset-0 rounded-full border border-red-400 animate-ping opacity-75" />
+        {/* "Talk to our Agent" Tooltip Bubble */}
+        <AnimatePresence>
+          {showTooltip && !isOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: -12, scale: 0.92 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -12, scale: 0.92 }}
+              transition={{ type: "spring", damping: 22, stiffness: 200 }}
+              className="flex items-center gap-2.5 bg-white text-gray-800 rounded-2xl rounded-bl-sm px-4 py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.15)] border border-gray-100 max-w-[220px]"
+            >
+              {/* Green dot pulse */}
+              <span className="relative flex-shrink-0">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 block" />
+                <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-60" />
+              </span>
+              <p className="text-[12px] font-semibold leading-tight text-gray-700 flex-1">
+                Talk to our Agent
+              </p>
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
+                className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100 p-0.5"
+                aria-label="Dismiss"
+              >
+                <X size={12} />
+              </button>
+            </motion.div>
           )}
+        </AnimatePresence>
+
+        {/* Floating Widget Button */}
+        <motion.button
+          onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }}
+          whileHover={{ scale: 1.07 }}
+          whileTap={{ scale: 0.94 }}
+          className={`relative flex items-center gap-2.5 rounded-full pl-3.5 pr-5 py-0 h-14 cursor-pointer text-white shadow-[0_12px_40px_rgba(16,185,129,0.35)] transition-all duration-300 ${
+            callState === "active"
+              ? "bg-gradient-to-r from-red-600 to-rose-500 shadow-red-500/30"
+              : "bg-gradient-to-r from-emerald-700 via-green-700 to-teal-700"
+          }`}
+        >
+          {/* Icon circle */}
+          <span className={`relative flex items-center justify-center w-9 h-9 rounded-full flex-shrink-0 ${
+            callState === "active" ? "bg-white/20" : "bg-white/15"
+          }`}>
+            {callState === "active" ? (
+              <PhoneOff size={18} className="animate-pulse" />
+            ) : callState === "connecting" ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <MessageCircle size={18} />
+            )}
+          </span>
+
+          {/* Label */}
+          <span className="text-[12px] font-bold tracking-wide whitespace-nowrap">
+            {callState === "active"
+              ? "On Call"
+              : callState === "connecting"
+              ? "Connecting..."
+              : "Botanical Concierge"}
+          </span>
+
+          {/* Ping ring for idle state */}
           {callState === "idle" && (
-            <span className="absolute inset-0 rounded-full border border-emerald-400 animate-ping opacity-25 pointer-events-none" />
+            <span className="absolute -inset-1 rounded-full border border-emerald-400/50 animate-ping pointer-events-none" />
+          )}
+          {callState === "active" && (
+            <span className="absolute -inset-1 rounded-full border border-red-400/60 animate-ping pointer-events-none" />
           )}
         </motion.button>
       </div>
@@ -510,114 +561,135 @@ The user is currently viewing the page path: '${location.pathname}'`;
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 50 }}
+            initial={{ opacity: 0, scale: 0.92, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 50 }}
-            transition={{ type: "spring", damping: 20, stiffness: 150 }}
-            className="fixed bottom-24 left-6 w-[calc(100%-3rem)] sm:w-96 bg-[#022c22]/90 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.6)] p-6 z-[150] text-white flex flex-col gap-6"
+            exit={{ opacity: 0, scale: 0.92, y: 30 }}
+            transition={{ type: "spring", damping: 22, stiffness: 160 }}
+            className="fixed bottom-24 left-6 w-[calc(100%-3rem)] sm:w-[360px] z-[150] text-white"
           >
-            {/* Header */}
-            <div className="flex justify-between items-center pb-2 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-lime-400" />
-                <h3 className="font-headline font-black text-sm uppercase tracking-wider text-white">Botanical Concierge</h3>
-              </div>
-              <div className="flex items-center gap-2">
+            {/* Panel card */}
+            <div className="bg-gradient-to-b from-[#03362a] to-[#011e17] backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden">
+
+              {/* Header strip */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/8 bg-white/5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-lime-400 to-emerald-500 flex items-center justify-center">
+                    <Sparkles size={14} className="text-emerald-950" />
+                  </div>
+                  <div>
+                    <h3 className="font-headline font-black text-[11px] uppercase tracking-widest text-white leading-none">Botanical Concierge</h3>
+                    <p className="text-[9px] text-emerald-400/80 font-medium tracking-wide mt-0.5">AI-Powered • HerbsEra</p>
+                  </div>
+                </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-stone-400 hover:text-white transition-colors"
+                  className="w-7 h-7 rounded-full bg-white/8 hover:bg-white/15 flex items-center justify-center text-stone-400 hover:text-white transition-all"
                 >
-                  <X size={16} />
+                  <X size={13} />
                 </button>
               </div>
-            </div>
 
-            {/* Content */}
-            <div className="flex flex-col items-center gap-8 py-4">
-              {/* Audio Animation / Waveform */}
-              <div className="relative w-32 h-32 rounded-full border border-white/10 flex items-center justify-center bg-white/5">
-                {callState === "active" ? (
-                  <>
-                    {/* Pulsing sound waves */}
-                    <motion.div
-                      animate={{ scale: [1, 1.4, 1] }}
-                      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                      className="absolute inset-0 rounded-full border border-lime-400/20"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.25, 1] }}
-                      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut", delay: 0.4 }}
-                      className="absolute inset-0 rounded-full border border-lime-400/40"
-                    />
-                    <Volume2 size={36} className="text-lime-400 animate-pulse" />
-                  </>
-                ) : callState === "connecting" ? (
-                  <Loader2 size={36} className="text-lime-400 animate-spin" />
-                ) : (
-                  <Phone size={36} className="text-stone-400" />
-                )}
-              </div>
+              {/* Body */}
+              <div className="flex flex-col items-center gap-6 px-6 py-7">
 
-              {/* Status Indicator */}
-              <div className="text-center space-y-1">
-                <p className="font-headline font-black text-sm uppercase tracking-widest text-white">
-                  {callState === "active"
-                    ? "Call Connected"
-                    : callState === "connecting"
-                    ? "Connecting..."
-                    : callState === "ended"
-                    ? "Call Ended"
-                    : "Concierge Offline"}
-                </p>
-                <p className="text-[10px] font-body text-stone-400 max-w-[280px]">
-                  {callState === "active"
-                    ? "Speak naturally. Ask about gemstone soaps, ingredients, or order policies."
-                    : callState === "connecting"
-                    ? "Initializing WebSocket handshake & audio context..."
-                    : callState === "ended"
-                    ? "Thank you for visiting HerbsEra."
-                    : "Click Start Call to initiate real-time botanical audio assistant."}
-                </p>
-                {errorMessage && (
-                  <p className="text-[10px] font-body text-red-400 font-semibold pt-2">
-                    ⚠️ {errorMessage}
+                {/* Avatar / waveform ring */}
+                <div className="relative flex items-center justify-center">
+                  {/* Outer decorative rings */}
+                  {callState === "active" && (
+                    <>
+                      <motion.div
+                        animate={{ scale: [1, 1.45, 1], opacity: [0.15, 0.05, 0.15] }}
+                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                        className="absolute w-32 h-32 rounded-full border border-lime-400/30"
+                      />
+                      <motion.div
+                        animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.1, 0.3] }}
+                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.5 }}
+                        className="absolute w-32 h-32 rounded-full border border-lime-400/50"
+                      />
+                    </>
+                  )}
+                  <div className={`relative w-24 h-24 rounded-full flex items-center justify-center border ${
+                    callState === "active"
+                      ? "bg-gradient-to-br from-lime-400/20 to-emerald-700/20 border-lime-400/30"
+                      : callState === "connecting"
+                      ? "bg-white/5 border-white/10"
+                      : "bg-white/5 border-white/8"
+                  }`}>
+                    {callState === "active" ? (
+                      <Volume2 size={32} className="text-lime-400 animate-pulse" />
+                    ) : callState === "connecting" ? (
+                      <Loader2 size={32} className="text-lime-400 animate-spin" />
+                    ) : (
+                      <Phone size={32} className="text-stone-500" />
+                    )}
+                  </div>
+                </div>
+
+                {/* Status text */}
+                <div className="text-center space-y-1.5">
+                  <p className="font-headline font-black text-[13px] uppercase tracking-widest text-white">
+                    {callState === "active"
+                      ? "Call Connected"
+                      : callState === "connecting"
+                      ? "Connecting..."
+                      : callState === "ended"
+                      ? "Call Ended"
+                      : "Ready to Help"}
                   </p>
-                )}
-              </div>
+                  <p className="text-[11px] font-body text-stone-400 max-w-[240px] leading-relaxed">
+                    {callState === "active"
+                      ? "Speak naturally — ask about soaps, ingredients, or your order."
+                      : callState === "connecting"
+                      ? "Setting up your audio connection..."
+                      : callState === "ended"
+                      ? "Thank you for visiting HerbsEra. Goodbye!"
+                      : "Start a voice call with our AI botanical expert."}
+                  </p>
+                  {errorMessage && (
+                    <p className="text-[10px] font-body text-red-400 font-semibold pt-1">
+                      ⚠️ {errorMessage}
+                    </p>
+                  )}
+                </div>
 
-              {/* Active Call Controls */}
-              <div className="flex items-center gap-4 w-full pt-4 border-t border-white/5 justify-center">
-                {callState === "active" ? (
-                  <>
-                    {/* Mute Button */}
-                    <Button
-                      onClick={toggleMute}
-                      variant="outline"
-                      size="icon"
-                      className={`w-12 h-12 rounded-full bg-white/5 border-white/10 text-white hover:bg-white/10 ${
-                        isMuted ? "text-red-400 border-red-500/30 bg-red-500/10" : ""
-                      }`}
+                {/* Call Controls */}
+                <div className="w-full pt-4 border-t border-white/8">
+                  {callState === "active" ? (
+                    <div className="flex items-center justify-center gap-3">
+                      {/* Mute */}
+                      <button
+                        onClick={toggleMute}
+                        className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                          isMuted
+                            ? "bg-red-500/15 border-red-500/40 text-red-400 hover:bg-red-500/25"
+                            : "bg-white/8 border-white/15 text-stone-300 hover:bg-white/15 hover:text-white"
+                        }`}
+                        title={isMuted ? "Unmute" : "Mute"}
+                      >
+                        {isMuted ? <MicOff size={17} /> : <Mic size={17} />}
+                      </button>
+
+                      {/* End Call */}
+                      <button
+                        onClick={endCall}
+                        className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-rose-500 hover:from-red-500 hover:to-rose-400 text-white px-6 h-12 rounded-full font-headline font-black text-[10px] uppercase tracking-wider shadow-[0_6px_20px_rgba(239,68,68,0.35)] transition-all"
+                      >
+                        <PhoneOff size={15} />
+                        End Call
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={startCall}
+                      disabled={callState === "connecting"}
+                      className="w-full h-12 rounded-full bg-gradient-to-r from-lime-400 to-green-400 hover:from-lime-300 hover:to-green-300 text-emerald-950 font-headline font-black text-[11px] uppercase tracking-widest shadow-[0_8px_25px_rgba(163,230,53,0.35)] transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
-                      {isMuted ? <MicOff size={18} /> : <Mic size={18} />}
-                    </Button>
-                    
-                    {/* End Call Button */}
-                    <Button
-                      onClick={endCall}
-                      className="bg-red-500 hover:bg-red-600 text-white w-28 h-12 rounded-full font-headline font-black text-[10px] uppercase tracking-wider"
-                    >
-                      <PhoneOff size={16} className="mr-1.5 inline" /> End Call
-                    </Button>
-                  </>
-                ) : (
-                  <Button
-                    onClick={startCall}
-                    disabled={callState === "connecting"}
-                    className="bg-lime-400 hover:bg-white text-emerald-950 w-48 h-12 rounded-full font-headline font-black text-[10px] uppercase tracking-widest"
-                  >
-                    <Phone size={16} className="mr-1.5 inline animate-pulse" /> Start Call
-                  </Button>
-                )}
+                      <Phone size={16} className={callState === "connecting" ? "" : "animate-pulse"} />
+                      {callState === "connecting" ? "Connecting..." : "Start Call"}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>
