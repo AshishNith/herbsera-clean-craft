@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Phone, PhoneOff, Mic, MicOff, Sparkles, Loader2, X, Volume2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { SYSTEM_PROMPT } from "@/constants/websiteContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { getProducts, Product } from "@/services/productService";
 
 export default function VoiceConcierge() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [callState, setCallState] = useState<"idle" | "connecting" | "active" | "ended">("idle");
@@ -32,6 +33,29 @@ export default function VoiceConcierge() {
     };
     fetchProducts();
   }, []);
+
+  // Notify the Gemini Live model when the user's path changes in real-time
+  useEffect(() => {
+    if (callState === "active" && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      const routeUpdateMessage = {
+        clientContent: {
+          turns: [
+            {
+              role: "user",
+              parts: [
+                {
+                  text: `[System Note: The user has transitioned/navigated to the page: '${location.pathname}']`
+                }
+              ]
+            }
+          ],
+          turnComplete: true
+        }
+      };
+      wsRef.current.send(JSON.stringify(routeUpdateMessage));
+      console.log(`[VoiceConcierge] Sent active page context update to Gemini: ${location.pathname}`);
+    }
+  }, [location.pathname, callState]);
 
   // Sync mute state ref to prevent stale closures in Web Audio callbacks
   useEffect(() => {
@@ -141,6 +165,25 @@ export default function VoiceConcierge() {
       wsRef.current = ws;
 
       ws.onopen = () => {
+        // Build dynamic system instruction with actual product data
+        const dynamicProductText = productsList && productsList.length > 0
+          ? productsList.map((p, idx) => {
+              return `${idx + 1}. **${p.name}** (Slug: '${p.slug}', Price: ₹${p.price}): ${p.description} Benefit: ${p.benefit || ''}. Category: ${p.category}. Tags: ${p.tags?.join(', ') || ''}.`;
+            }).join('\n')
+          : "No live products loaded yet.";
+
+        const dynamicInstructionText = `${SYSTEM_PROMPT}
+
+## 7. Actual Live Products in Store (From Database)
+Use this list for matching product names. 
+- For adding a product to the cart, call 'add_to_cart_by_name'.
+- To view a particular product's detail page, call 'navigate_to' with the path '/products/<slug>' where <slug> is the exact slug of the product from the list below. E.g. for Black Diamond Soap, call navigate_to with path '/products/black-diamond-gemstone-soap'.
+Live products:
+${dynamicProductText}
+
+## 8. Current Navigation Context
+The user is currently viewing the page path: '${location.pathname}'`;
+
         // Send session configuration handshake
         const setupMessage = {
           setup: {
@@ -157,7 +200,7 @@ export default function VoiceConcierge() {
               }
             },
             systemInstruction: {
-              parts: [{ text: SYSTEM_PROMPT }]
+              parts: [{ text: dynamicInstructionText }]
             },
             tools: [
               {
