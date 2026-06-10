@@ -62,7 +62,6 @@ export default function VoiceConcierge() {
     isMutedRef.current = isMuted;
   }, [isMuted]);
 
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
   const wsRef = useRef<WebSocket | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -133,11 +132,6 @@ export default function VoiceConcierge() {
   };
 
   const startCall = async () => {
-    if (!apiKey) {
-      setErrorMessage("Gemini API Key is missing in the environment configuration.");
-      return;
-    }
-
     setCallState("connecting");
     setErrorMessage("");
 
@@ -159,8 +153,11 @@ export default function VoiceConcierge() {
       });
       micStreamRef.current = stream;
 
-      // 3. Connect WebSocket to Gemini Realtime Live API (v1beta)
-      const socketUrl = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${apiKey.trim()}`;
+      // 3. Connect WebSocket to Backend Voice Concierge Proxy
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+      const baseUrl = apiUrl.replace(/\/api$/, "").replace(/^http/, "ws");
+      const socketUrl = `${baseUrl}/voice-concierge`;
+      console.log(`[VoiceConcierge] Connecting to WebSocket proxy: ${socketUrl}`);
       const ws = new WebSocket(socketUrl);
       wsRef.current = ws;
 
