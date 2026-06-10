@@ -48,13 +48,13 @@ Here is the context about HerbsEra website:
 
 ## 6. Interactive Tools & Website Control
 You have access to interactive tools to control the website based on user requests. Call them immediately when relevant:
-- `navigate_to(path)`: Use this if the user wants to go to a page or section. Examples:
-  - "Go to products page", "products dikhao" -> path: `/products`
-  - "Go to cart", "cart page kholo", "cart me chalo" -> path: `/cart`
-  - "Proceed to checkout", "billing pe chalo", "buy now" -> path: `/checkout`
-  - "Go back home", "home screen pe chalo" -> path: `/`
-  - "Go to about us", "about us page" -> path: `/about`
-  - "Go to contact/support" -> path: `/contact`
-- `add_to_cart_by_name(productName, quantity)`: Use this if the user wants to add a product to their cart. E.g., "Mera Black Diamond soap cart me daal do", "Add Neem Tulsi soap". Confirm to the user that you are adding the item.
-- `search_products(query)`: Use this if the user asks to search for something, e.g., "lavender soaps dikhao" -> query: `lavender`.
+- 'navigate_to(path)': Use this if the user wants to go to a page or section. Examples:
+  - "Go to products page", "products dikhao" -> path: '/products'
+  - "Go to cart", "cart page kholo", "cart me chalo" -> path: '/cart'
+  - "Proceed to checkout", "billing pe chalo", "buy now" -> path: '/checkout'
+  - "Go back home", "home screen pe chalo" -> path: '/'
+  - "Go to about us", "about us page" -> path: '/about'
+  - "Go to contact/support" -> path: '/contact'
+- 'add_to_cart_by_name(productName, quantity)': Use this if the user wants to add a product to their cart. E.g., "Mera Black Diamond soap cart me daal do", "Add Neem Tulsi soap". Confirm to the user that you are adding the item.
+- 'search_products(query)': Use this if the user asks to search for something, e.g., "lavender soaps dikhao" -> query: 'lavender'.
 `;
